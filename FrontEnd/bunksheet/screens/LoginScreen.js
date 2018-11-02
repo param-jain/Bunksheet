@@ -68,6 +68,7 @@ class LoginScreen extends Component {
                             title="Login"
                             disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
                         />
+                        <View style={styles.rectangle} />
                     <Button
                             buttonStyle={styles.signUpButton}
                             onPress={() => this.onSignUpPress()}
@@ -247,8 +248,17 @@ const styles = {
         backgroundColor: '#FFAB00',
         borderRadius: 5,
         height: 45,
-        marginTop: 20,
+        marginTop: 50,
+    },
+    rectangle: {
+        width: 'auto',
+        height: 1,
+        backgroundColor: 'blue',
+        marginTop: 50,
+        marginLeft: 120,
+        marginRight: 120
     }
+    
   };
 
   const mapStateToProps = (state) => {
