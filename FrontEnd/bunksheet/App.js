@@ -7,12 +7,14 @@ import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
 import LoginScreen from './screens/LoginScreen';
 import LibraryScreen from './screens/LibraryScreen';
+import SignUpScreen from './screens/SignUpScreen';
 
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
         login: { screen: LoginScreen },
-        library: { screen: LibraryScreen }
+        library: { screen: LibraryScreen },
+        signUp: { screen: SignUpScreen }
     });
 
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

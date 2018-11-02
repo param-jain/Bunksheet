@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Keyboard, Text, View, TextInput, Alert, TouchableWithoutFeedback, Image, KeyboardAvoidingView } from 'react-native';
+import {Keyboard, Text, View, TextInput, Alert, TouchableWithoutFeedback, Image, KeyboardAvoidingView, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 
 import { emailChanged, passwordChanged, loginUser } from '../actions/index';
@@ -29,16 +29,7 @@ class LoginScreen extends Component {
     }
 
     onSignUpPress() {
-        const { email, password } = this.props;
-        Alert.alert(
-            'Sign up Pressed',
-            'Proceed to Sign Up Page!!!',
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            { cancelable: false }
-          )
-        this.props.loginUser({ email, password });
+        this.props.navigation.navigate('signUp');
     }
 
     validateEmail = (email) => {
@@ -173,13 +164,14 @@ class LoginScreen extends Component {
 
         return (
           <KeyboardAvoidingView style={styles.containerView} behavior="padding">
+            <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.containerView}>
                     <View style={styles.loginFormView}>
                         <View style={styles.logoImageView}>
                             <Image 
                                 style={styles.logoImage}
-                                source={require('/Users/param_jain/Documents/GitHub/Bunksheet/FrontEnd/bunksheet/assets/a9786e34-6b20-4426-8eb7-df9265310b8c.png')}
+                                source={require('/Users/param_jain/Documents/GitHub/Bunksheet/FrontEnd/bunksheet/assets/White_Background.png')}
                             />
                         </View>
                         <Text style={styles.logoText}>BunkSheet</Text>
@@ -191,7 +183,6 @@ class LoginScreen extends Component {
                             title="Login"
                             disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
                         />
-                    <View style={styles.rectangle} />
                     <Button
                             buttonStyle={styles.signUpButton}
                             onPress={() => this.onSignUpPress()}
@@ -257,14 +248,6 @@ const styles = {
         borderRadius: 5,
         height: 45,
         marginTop: 20,
-    },
-    rectangle: {
-        width: 'auto',
-        height: 1,
-        backgroundColor: '#424242',
-        marginTop: 20,
-        marginLeft: 15,
-        marginRight: 15
     }
   };
 
