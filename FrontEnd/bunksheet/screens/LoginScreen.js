@@ -41,19 +41,6 @@ class LoginScreen extends Component {
         this.props.loginUser({ email, password });
     }
 
-    validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    validate() {
-        if (validateEmail(this.props.email)) {
-    
-        } else {
-          
-        }
-      }
-
     render() {
         return (
           <KeyboardAvoidingView style={styles.containerView} behavior="padding">
@@ -86,6 +73,7 @@ class LoginScreen extends Component {
                             buttonStyle={styles.loginButton}
                             onPress={() => this.onLoginPress()}
                             title="Login"
+                            disabled={!(this.props.email.length > 0 && this.props.password.length > 0)}
                         />
                     <View style={styles.rectangle} />
                     <Button
@@ -127,7 +115,6 @@ const styles = {
         fontSize: 14,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: '#eaeaea',
         backgroundColor: '#fafafa',
         paddingLeft: 10,
         marginLeft: 15,
