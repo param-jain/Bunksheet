@@ -32,7 +32,55 @@ class LoginScreen extends Component {
         this.props.navigation.navigate('signUp');
     }
 
-    validateEmail = (email) => {
+    loginButtonDisabled = (email, password) => {
+        if (
+                (password.length<6)||
+                (email.indexOf('.') === -1)||
+                (email.split('').filter(x => x === '@').length !== 1)||
+                (email.length < 5)
+            ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    render() {
+
+        return (
+          <KeyboardAvoidingView style={styles.containerView} behavior="padding">
+            <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.containerView}>
+                    <View style={styles.loginFormView}>
+                        <View style={styles.logoImageView}>
+                            <Image 
+                                style={styles.logoImage}
+                                source={require('/Users/param_jain/Documents/GitHub/Bunksheet/FrontEnd/bunksheet/assets/White_Background.png')}
+                            />
+                        </View>
+                        <Text style={styles.logoText}>BunkSheet</Text>
+                        {this.validateEmail(this.props.email)}
+                        {this.validatePassword(this.props.password)}
+                        <Button
+                            buttonStyle={styles.loginButton}
+                            onPress={() => this.onLoginPress()}
+                            title="Login"
+                            disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
+                        />
+                    <Button
+                            buttonStyle={styles.signUpButton}
+                            onPress={() => this.onSignUpPress()}
+                            title="Sign Up"
+                        />
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        );
+      }
+
+      validateEmail = (email) => {
         if (!this.props.emailTouched) {
             return (  
                 <View>
@@ -146,54 +194,6 @@ class LoginScreen extends Component {
             }
         }
     }
-
-    loginButtonDisabled = (email, password) => {
-        if (
-                (password.length<6)||
-                (email.indexOf('.') === -1)||
-                (email.split('').filter(x => x === '@').length !== 1)||
-                (email.length < 5)
-            ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    render() {
-
-        return (
-          <KeyboardAvoidingView style={styles.containerView} behavior="padding">
-            <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.containerView}>
-                    <View style={styles.loginFormView}>
-                        <View style={styles.logoImageView}>
-                            <Image 
-                                style={styles.logoImage}
-                                source={require('/Users/param_jain/Documents/GitHub/Bunksheet/FrontEnd/bunksheet/assets/White_Background.png')}
-                            />
-                        </View>
-                        <Text style={styles.logoText}>BunkSheet</Text>
-                        {this.validateEmail(this.props.email)}
-                        {this.validatePassword(this.props.password)}
-                        <Button
-                            buttonStyle={styles.loginButton}
-                            onPress={() => this.onLoginPress()}
-                            title="Login"
-                            disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
-                        />
-                    <Button
-                            buttonStyle={styles.signUpButton}
-                            onPress={() => this.onSignUpPress()}
-                            title="Sign Up"
-                        />
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        );
-      }
 }
 const styles = {
     containerView: {
