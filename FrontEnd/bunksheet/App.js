@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
-
+import reducers from './reducers';
 import LoginScreen from './screens/LoginScreen';
 import LibraryScreen from './screens/LibraryScreen';
 
@@ -12,10 +15,14 @@ export default class App extends React.Component {
         library: { screen: LibraryScreen }
     });
 
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <View style={styles.container}>
+      <Provider store={store}>
+        <View style={styles.container}>
           <MainNavigator />
       </View>
+      </Provider>
     );
   }
 }
