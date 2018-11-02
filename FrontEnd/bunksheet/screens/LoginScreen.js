@@ -29,7 +29,7 @@ class LoginScreen extends Component {
     }
 
     onSignUpPress() {
-        this.props.navigation.navigate('signUp');
+        this.props.navigation.navigate('sign_up_1');
     }
 
     loginButtonDisabled = (email, password) => {
@@ -56,7 +56,7 @@ class LoginScreen extends Component {
                         <View style={styles.logoImageView}>
                             <Image 
                                 style={styles.logoImage}
-                                source={require('/Users/param_jain/Documents/GitHub/Bunksheet/FrontEnd/bunksheet/assets/White_Background.png')}
+                                source={require('../assets/bunksheet_logos/White_Background.png')}
                             />
                         </View>
                         <Text style={styles.logoText}>BunkSheet</Text>
