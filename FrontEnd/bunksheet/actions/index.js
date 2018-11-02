@@ -1,4 +1,4 @@
-import { EMAIL_CHANGED, PASSWORD_CHANGED } from './types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_ATTEMPTED } from './types';
 
 export const emailChanged = (text) => {
     return {
@@ -15,7 +15,7 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }) => {
-    return (dispatch) => {
-        //Authentication Call
-    };
+    return {
+        type: LOGIN_ATTEMPTED,
+    }
 };
