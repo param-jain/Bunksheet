@@ -43,14 +43,10 @@ class SignUpScreen_2 extends Component {
     }
 
     onFNameChange(text) {
-      //text=text.toLowerCase();
-      //text=text.charAt(0).toUpperCase() + text.slice(1);
       this.props.signupFNameChanged(text);
     }
 
     onLNameChange(text) {
-      //text=text.toLowerCase();
-      //text=text.charAt(0).toUpperCase() + text.slice(1);
       this.props.signupLNameChanged(text);
     }
 

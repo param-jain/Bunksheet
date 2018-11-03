@@ -8,7 +8,6 @@ import { emailChanged, passwordChanged, loginUser } from '../actions/index';
 class LoginScreen extends Component {
 
     onEmailChange(text) {
-        //text=text.toLowerCase();
         this.props.emailChanged(text);
     }
 
@@ -51,6 +50,7 @@ class LoginScreen extends Component {
             return (  
                 <View>
                     <TextInput
+                        autoCapitalize = 'none'
                         underlineColorAndroid="transparent" 
                         placeholder="Email" 
                         placeholderColor="#c4c3cb" 
@@ -65,6 +65,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
@@ -79,6 +80,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
@@ -93,6 +95,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
@@ -107,6 +110,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 

@@ -30,7 +30,6 @@ class SignUpScreen_1 extends Component {
     }
 
     onEmailChange(text) {
-        //text=text.toLowerCase();
         this.props.signupEmailChanged(text);
     }
 
@@ -39,11 +38,11 @@ class SignUpScreen_1 extends Component {
             return (  
                 <View>
                     <TextInput
+                        autoCapitalize = 'none'
                         underlineColorAndroid="transparent" 
                         placeholder="Email" 
                         placeholderColor="#c4c3cb" 
-                        style={styles.loginFormTextInput} 
-                        autoCapitalize='none'
+                        style={styles.loginFormTextInput}
                         onChangeText={this.onEmailChange.bind(this)}
                         value={this.props.email}
                     />
@@ -54,10 +53,10 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
-                            autoCapitalize='words'
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -69,10 +68,10 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            autoCapitalize='words'
+                            placeholderColor="#c4c3cb"
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -84,10 +83,10 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            autoCapitalize='words'
+                            placeholderColor="#c4c3cb"
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -99,10 +98,10 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
-                            placeholderColor="#c4c3cb"
-                            autoCapitalize='words' 
+                            placeholderColor="#c4c3cb" 
                             style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -356,7 +355,6 @@ let styles = StyleSheet.create({
       marginBottom: 10,
     },
     loginFormView: {
-        //justifyContent: 'center',
         marginTop: 50,
         flex: 1,
     },
