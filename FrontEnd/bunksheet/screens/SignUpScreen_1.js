@@ -30,6 +30,7 @@ class SignUpScreen_1 extends Component {
     }
 
     onEmailChange(text) {
+        text=text.trim();
         this.props.signupEmailChanged(text);
     }
 
@@ -113,6 +114,7 @@ class SignUpScreen_1 extends Component {
     }
 
     onPasswordChange(text) {
+        text=text.trim();
         this.props.signupPasswordChanged(text);
     }
 
@@ -166,6 +168,7 @@ class SignUpScreen_1 extends Component {
     }
 
     onVerifyPasswordChange(text) {
+        text=text.trim();
         this.props.signupVerifyPasswordChanged(text);
     }
 
@@ -325,7 +328,8 @@ let styles = StyleSheet.create({
       height: Dimensions.get('window').height
     },
     headerIconView: {
-      flex: .1,
+      marginBottom: 10,
+      flex: 0.15,
       backgroundColor: 'transparent'
     },
     headerBackButtonView: {
@@ -344,8 +348,8 @@ let styles = StyleSheet.create({
     headerTitleView: {
       backgroundColor: 'transparent',
       paddingLeft: 25,
-      marginBottom:10,
-      marginTop: 10
+      marginBottom:0,
+      marginTop: 0
     },
     titleViewText: {
       fontSize: 40,
@@ -355,7 +359,7 @@ let styles = StyleSheet.create({
       marginBottom: 10,
     },
     loginFormView: {
-        marginTop: 50,
+        marginTop: 40,
         flex: 1,
     },
     loginFormTextInput: {

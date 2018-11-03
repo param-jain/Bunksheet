@@ -43,11 +43,18 @@ class SignUpScreen_2 extends Component {
     }
 
     onFNameChange(text) {
+      text=text.trim();
       this.props.signupFNameChanged(text);
     }
 
     onLNameChange(text) {
+      text=text.trim();
       this.props.signupLNameChanged(text);
+    }
+
+    onRegIDChange(text) {
+      text=text.trim();
+      this.props.signupRegIDChanged(text);
     }
 
     validateFName = (fName) => {
@@ -146,10 +153,6 @@ class SignUpScreen_2 extends Component {
           );
         }
       }
-    }
-
-    onRegIDChange(text) {
-      this.props.signupRegIDChanged(text);
     }
 
     validateRegID = (regID) => {
@@ -290,7 +293,7 @@ let styles = StyleSheet.create({
       height: Dimensions.get('window').height
     },
     headerIconView: {
-      flex: .1,
+      flex: 0.15,
       backgroundColor: 'transparent'
     },
     headerBackButtonView: {
@@ -309,8 +312,8 @@ let styles = StyleSheet.create({
     headerTitleView: {
       backgroundColor: 'transparent',
       paddingLeft: 25,
-      marginBottom:10,
-      marginTop: 10
+      marginBottom:0,
+      marginTop: 0
     },
     titleViewText: {
       fontSize: 30,
@@ -320,8 +323,7 @@ let styles = StyleSheet.create({
       marginBottom: 10,
     },
     loginFormView: {
-        //justifyContent: 'center',
-        marginTop: 50,
+        marginTop: 40,
         flex: 1,
     },
     loginFormTextInput: {

@@ -8,10 +8,12 @@ import { emailChanged, passwordChanged, loginUser } from '../actions/index';
 class LoginScreen extends Component {
 
     onEmailChange(text) {
+        text=text.trim();
         this.props.emailChanged(text);
     }
 
     onPasswordChange(text) {
+        text=text.trim();
         this.props.passwordChanged(text);
     }
 
