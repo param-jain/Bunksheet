@@ -8,7 +8,7 @@ import { emailChanged, passwordChanged, loginUser } from '../actions/index';
 class LoginScreen extends Component {
 
     onEmailChange(text) {
-        text=text.toLowerCase();
+        //text=text.toLowerCase();
         this.props.emailChanged(text);
     }
 

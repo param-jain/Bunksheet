@@ -30,7 +30,7 @@ class SignUpScreen_1 extends Component {
     }
 
     onEmailChange(text) {
-        text=text.toLowerCase();
+        //text=text.toLowerCase();
         this.props.signupEmailChanged(text);
     }
 
@@ -43,6 +43,7 @@ class SignUpScreen_1 extends Component {
                         placeholder="Email" 
                         placeholderColor="#c4c3cb" 
                         style={styles.loginFormTextInput} 
+                        autoCapitalize='none'
                         onChangeText={this.onEmailChange.bind(this)}
                         value={this.props.email}
                     />
@@ -56,6 +57,7 @@ class SignUpScreen_1 extends Component {
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
+                            autoCapitalize='words'
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -70,6 +72,7 @@ class SignUpScreen_1 extends Component {
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
+                            autoCapitalize='words'
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -84,6 +87,7 @@ class SignUpScreen_1 extends Component {
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
                             placeholderColor="#c4c3cb" 
+                            autoCapitalize='words'
                             style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -97,7 +101,8 @@ class SignUpScreen_1 extends Component {
                         <TextInput
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
+                            placeholderColor="#c4c3cb"
+                            autoCapitalize='words' 
                             style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
                             onChangeText={this.onEmailChange.bind(this)}
                             value={this.props.email}
@@ -233,6 +238,47 @@ class SignUpScreen_1 extends Component {
         this.props.navigation.navigate('sign_up_2');
     }
 
+    enableNextButton = (email, password, verifyPassword) => {
+        if (
+            (password.length<6)||
+            (email.indexOf('.') === -1)||
+            (email.split('').filter(x => x === '@').length !== 1)||
+            (email.length < 5)||
+            (verifyPassword.length < 6)||
+            (verifyPassword!=password)
+            ) {
+                return (
+                    <TouchableOpacity 
+                        style={styles.nextButton}
+                        onPress={this.navigateToSignUpDetails.bind(this)}
+                        disabled
+                        >
+                        <Icon
+                            raised
+                            name='arrow-right'
+                            type='entypo'
+                            color='#777777'
+                            style={styles.nextButtonLayout} 
+                        />
+                    </TouchableOpacity>
+                );
+        } else {
+            return(
+                <TouchableOpacity 
+                    style={styles.nextButton}
+                    onPress={this.navigateToSignUpDetails.bind(this)}
+                    >
+                    <Icon
+                        raised
+                        name='arrow-right'
+                        type='entypo'
+                        color='#E65100'
+                        style={styles.nextButtonLayout} />
+                </TouchableOpacity>
+            );
+        }
+    }
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -257,14 +303,7 @@ class SignUpScreen_1 extends Component {
                             {this.validateEmail(this.props.email)}
                             {this.validatePassword(this.props.password)}
                             {this.validateVerifyPassword(this.props.verifyPassword)}
-                            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'space-around' }} onPress={this.navigateToSignUpDetails.bind(this)}>
-                                <Icon
-                                    raised
-                                    name = 'arrow-right'
-                                    type = 'entypo'
-                                    color = '#E65100'
-                                    style ={styles.nextButton} />
-                            </TouchableOpacity>
+                            {this.enableNextButton(this.props.email, this.props.password, this.props.verifyPassword)}
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -341,10 +380,14 @@ let styles = StyleSheet.create({
         marginRight: 15,
         marginBottom: 5,
     },
-    nextButton: {
+    nextButtonLayout: {
         marginTop: 50,
-
     },
+    nextButton: {
+        flexDirection: 'row', 
+        justifyContent: 'space-around',
+        marginTop: 30
+    }
   });
 
 const mapStateToProps = (state) => ({

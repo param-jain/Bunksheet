@@ -5,7 +5,11 @@ import {
     SIGNUP_EMAIL_CHANGED,
     SIGNUP_PASSWORD_CHANGED,
     SIGNUP_VERIFY_PASSWORD_CHANGED,
- } from './types';
+    SIGNUP_F_NAME_CHANGED,
+    SIGNUP_L_NAME_CHANGED,
+    SIGNUP_REG_ID_CHANGED,
+    SIGNUP_ATTEMPTED
+} from './types';
 
 
 //Login Screen
@@ -27,7 +31,7 @@ export const loginUser = ({ email, password }) => {
     }
 };
 
-// Sign Up Screen
+// Sign Up Screen 
 export const signupEmailChanged = (text) => {
     return {
         type: SIGNUP_EMAIL_CHANGED,
@@ -45,4 +49,29 @@ export const signupVerifyPasswordChanged = (text) => {
         type: SIGNUP_VERIFY_PASSWORD_CHANGED,
         payload: text
     };
+};
+
+// Sign Up Details Screen
+export const signupFNameChanged = (text) => {
+    return {
+        type: SIGNUP_F_NAME_CHANGED,
+        payload: text
+    };
+};
+export const signupLNameChanged = (text) => {
+    return {
+        type: SIGNUP_L_NAME_CHANGED,
+        payload: text
+    };
+};
+export const signupRegIDChanged = (text) => {
+    return {
+        type: SIGNUP_REG_ID_CHANGED,
+        payload: text
+    };
+};
+export const signupCreateAccount = ({ email, password, fName, lName, regID }) => {
+    return {
+        type: SIGNUP_ATTEMPTED,
+    }
 };

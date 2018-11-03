@@ -2,6 +2,10 @@ import {
     SIGNUP_EMAIL_CHANGED, 
     SIGNUP_PASSWORD_CHANGED, 
     SIGNUP_VERIFY_PASSWORD_CHANGED,
+    SIGNUP_F_NAME_CHANGED,
+    SIGNUP_L_NAME_CHANGED,
+    SIGNUP_REG_ID_CHANGED,
+    SIGNUP_ATTEMPTED
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -12,6 +16,12 @@ const INITIAL_STATE = {
     verifyPassword: '',
     verifyPasswordTouched: false,
     isAuthenticating: false,
+    fName: '',
+    fNameTouched: false,
+    lName: '',
+    lNameTouched: '',
+    regID: '',
+    regIDTouched: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,6 +35,32 @@ export default (state = INITIAL_STATE, action) => {
 
         case SIGNUP_VERIFY_PASSWORD_CHANGED:
             return { ...state, verifyPassword: action.payload, verifyPasswordTouched: true };
+
+        case SIGNUP_F_NAME_CHANGED:
+            return { ...state, fName: action.payload, fNameTouched: true };
+    
+        case SIGNUP_L_NAME_CHANGED:
+            return { ...state, lName: action.payload, lNameTouched: true };
+
+        case SIGNUP_REG_ID_CHANGED: 
+            return { ...state, regID: action.payload, regIDTouched: true };
+
+        case SIGNUP_ATTEMPTED:
+            return { ...state, 
+                email: '',  
+                emailTouched: false, 
+                password: '',
+                passwordTouched: false,
+                verifyPassword: '',
+                verifyPasswordTouched: false,
+                isAuthenticating: false,
+                fName: '',
+                fNameTouched: false,
+                lName: '',
+                lNameTouched: '',
+                regID: '',
+                regIDTouched: false,
+            };
 
         default: 
             return state;
