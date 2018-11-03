@@ -8,6 +8,7 @@ import { emailChanged, passwordChanged, loginUser } from '../actions/index';
 class LoginScreen extends Component {
 
     onEmailChange(text) {
+        text=text.toLowerCase();
         this.props.emailChanged(text);
     }
 
@@ -45,8 +46,130 @@ class LoginScreen extends Component {
         }
     }
 
-    render() {
+    validateEmail = (email) => {
+        if (!this.props.emailTouched) {
+            return (  
+                <View>
+                    <TextInput
+                        underlineColorAndroid="transparent" 
+                        placeholder="Email" 
+                        placeholderColor="#c4c3cb" 
+                        style={styles.loginFormTextInput} 
+                        onChangeText={this.onEmailChange.bind(this)}
+                        value={this.props.email}
+                    />
+                </View>        
+            );
+        } else {
+            if (email.length < 5) {
+                return (  
+                    <View>
+                        <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Email" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
+                            onChangeText={this.onEmailChange.bind(this)}
+                            value={this.props.email}
+                        />
+                        <Text style={styles.errorMessage}>Email should be at least 5 characters long!</Text>
+                    </View>        
+                );
+            } else if (email.split('').filter(x => x === '@').length !== 1) {
+                return (  
+                    <View>
+                        <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Email" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
+                            onChangeText={this.onEmailChange.bind(this)}
+                            value={this.props.email}
+                        />
+                        <Text style={styles.errorMessage}>Email should contain '@'</Text>
+                    </View>        
+                );
+            } else if (email.indexOf('.') === -1) {
+                return (  
+                    <View>
+                        <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Email" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
+                            onChangeText={this.onEmailChange.bind(this)}
+                            value={this.props.email}
+                        />
+                        <Text style={styles.errorMessage}>Email should contain at least one dot (.)</Text>
+                    </View>        
+                );
+            } else {
+                return (  
+                    <View>
+                        <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Email" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
+                            onChangeText={this.onEmailChange.bind(this)}
+                            value={this.props.email}
+                        />
+                    </View>        
+                );
+            }
+        }
+    }
 
+    validatePassword = (password) => {
+        if (!this.props.passwordTouched) {
+            return (  
+                <View>
+                    <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Password" 
+                            placeholderColor="#c4c3cb" 
+                            style={styles.loginFormTextInput} 
+                            secureTextEntry={true}
+                            onChangeText={this.onPasswordChange.bind(this)}
+                            value={this.props.password}
+                        />
+                </View>        
+            );
+        } else { 
+            if (password.length < 6) {
+                return (
+                    <View>
+                         <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Password" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
+                            secureTextEntry={true}
+                            onChangeText={this.onPasswordChange.bind(this)}
+                            value={this.props.password}
+                        />
+                        <Text style={styles.errorMessage}>Password should be at least 6 characters long</Text>
+                    </View>
+                );
+            } else {
+                return (
+                    <View>
+                         <TextInput
+                            underlineColorAndroid="transparent" 
+                            placeholder="Password" 
+                            placeholderColor="#c4c3cb" 
+                            style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
+                            secureTextEntry={true}
+                            onChangeText={this.onPasswordChange.bind(this)}
+                            value={this.props.password}
+                        />
+                    </View>
+                );
+            }
+        }
+    }
+
+    render() {
         return (
           <KeyboardAvoidingView style={styles.containerView} behavior="padding">
             <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
@@ -79,121 +202,6 @@ class LoginScreen extends Component {
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
         );
-      }
-
-      validateEmail = (email) => {
-        if (!this.props.emailTouched) {
-            return (  
-                <View>
-                    <TextInput 
-                        placeholder="Email" 
-                        placeholderColor="#c4c3cb" 
-                        style={styles.loginFormTextInput} 
-                        onChangeText={this.onEmailChange.bind(this)}
-                        value={this.props.email}
-                    />
-                </View>        
-            );
-        } else {
-            if (email.length < 5) {
-                return (  
-                    <View>
-                        <TextInput 
-                            placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
-                            onChangeText={this.onEmailChange.bind(this)}
-                            value={this.props.email}
-                        />
-                        <Text style={styles.errorMessage}>Email should be at least 5 characters long!</Text>
-                    </View>        
-                );
-            } else if (email.split('').filter(x => x === '@').length !== 1) {
-                return (  
-                    <View>
-                        <TextInput 
-                            placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
-                            onChangeText={this.onEmailChange.bind(this)}
-                            value={this.props.email}
-                        />
-                        <Text style={styles.errorMessage}>Email should contain '@'</Text>
-                    </View>        
-                );
-            } else if (email.indexOf('.') === -1) {
-                return (  
-                    <View>
-                        <TextInput 
-                            placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
-                            onChangeText={this.onEmailChange.bind(this)}
-                            value={this.props.email}
-                        />
-                        <Text style={styles.errorMessage}>Email should contain at least one dot (.)</Text>
-                    </View>        
-                );
-            } else {
-                return (  
-                    <View>
-                        <TextInput 
-                            placeholder="Email" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
-                            onChangeText={this.onEmailChange.bind(this)}
-                            value={this.props.email}
-                        />
-                    </View>        
-                );
-            }
-        }
-    }
-
-    validatePassword = (password) => {
-        if (!this.props.passwordTouched) {
-            return (  
-                <View>
-                    <TextInput 
-                            placeholder="Password" 
-                            placeholderColor="#c4c3cb" 
-                            style={styles.loginFormTextInput} 
-                            secureTextEntry={true}
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
-                        />
-                </View>        
-            );
-        } else { 
-            if (password.length < 6) {
-                return (
-                    <View>
-                         <TextInput 
-                            placeholder="Password" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#DD2C00'}]} 
-                            secureTextEntry={true}
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
-                        />
-                        <Text style={styles.errorMessage}>Password should be at least 6 characters long</Text>
-                    </View>
-                );
-            } else {
-                return (
-                    <View>
-                         <TextInput 
-                            placeholder="Password" 
-                            placeholderColor="#c4c3cb" 
-                            style={[styles.loginFormTextInput, {borderColor: '#1B5E20'}]} 
-                            secureTextEntry={true}
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
-                        />
-                    </View>
-                );
-            }
-        }
     }
 }
 const styles = {
