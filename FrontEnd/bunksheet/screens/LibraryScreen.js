@@ -14,9 +14,10 @@ class LibraryScreen extends Component {
                 <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
                 <Header
                     backgroundColor="#FF9800"
+                    outerContainerStyles={{borderBottomWidth: 1, borderColor: '#000000'}}
                     centerContainerStyle={{paddingTop: 20}}
                     rightContainerStyle={{paddingTop: 20}}
-                    centerComponent={{ text: 'Library', style: { color: '#fff', fontSize: 22, paddingTop: 15 } }}
+                    centerComponent={{ text: 'Library', style: { color: '#fff', fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
                     rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff' }}
                 />
             </KeyboardAvoidingView>
