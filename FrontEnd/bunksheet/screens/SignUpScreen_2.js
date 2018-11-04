@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
+    StatusBar
   } from 'react-native'
 
 import { Button, Icon } from 'react-native-elements';
@@ -247,6 +248,7 @@ class SignUpScreen_2 extends Component {
 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
                 <Image style={styles.bg} source={require('../images/orange-owl-hi-flipped.png')} />
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.container}>

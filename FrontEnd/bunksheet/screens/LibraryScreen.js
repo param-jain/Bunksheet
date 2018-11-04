@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, Text, KeyboardAvoidingView, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native';
+import { Button, Header, Icon } from 'react-native-elements';
 
 class LibraryScreen extends Component {
 
@@ -10,22 +10,31 @@ class LibraryScreen extends Component {
 
     render() {
         return (
-            <View>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Text>LibraryScreen</Text>
-                <Button
-                    onPress={() => this.onBackLoginPress()}
-                    title="Back to Login"
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <StatusBar barStyle="light-content" animated={true} hidden={false} translucent={true} />
+                <Header
+                    backgroundColor="#FF9800"
+                    leftComponent={
+                        <TouchableOpacity>
+                            <Icon
+                                name='arrow-right'
+                                type='entypo' />
+                        </TouchableOpacity>
+                    }
+                    centerComponent={<Icon />}
+                    rightComponent={<Icon />}
                 />
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: 'transparent'
+      },
+});
 
 export default LibraryScreen;
