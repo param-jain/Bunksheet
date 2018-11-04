@@ -31,7 +31,7 @@ class LoginScreen extends Component {
     }
 
     onSignUpPress() {
-        this.props.navigation.navigate('library');
+        this.props.navigation.navigate('sign_up_1');
     }
 
     loginButtonDisabled = (email, password) => {

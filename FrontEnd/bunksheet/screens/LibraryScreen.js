@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, StyleSheet, StatusBar, TouchableOpacity, Image } from 'react-native';
-import { Button, Header, Icon } from 'react-native-elements';
+import { View, KeyboardAvoidingView, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
+import { Header } from 'react-native-elements';
 
 class LibraryScreen extends Component {
 
@@ -11,18 +11,13 @@ class LibraryScreen extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <StatusBar barStyle="light-content" animated={true} hidden={false} translucent={true} />
+                <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
                 <Header
                     backgroundColor="#FF9800"
-                    leftComponent={
-                        <TouchableOpacity>
-                            <Icon
-                                name='arrow-right'
-                                type='entypo' />
-                        </TouchableOpacity>
-                    }
-                    centerComponent={<Icon />}
-                    rightComponent={<Icon />}
+                    centerContainerStyle={{paddingTop: 20}}
+                    rightContainerStyle={{paddingTop: 20}}
+                    centerComponent={{ text: 'Library', style: { color: '#fff', fontSize: 22, paddingTop: 15 } }}
+                    rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff' }}
                 />
             </KeyboardAvoidingView>
         );
@@ -34,7 +29,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
         backgroundColor: 'transparent'
-      },
+      }
 });
 
 export default LibraryScreen;
