@@ -14,8 +14,8 @@ import SignUpScreen_2 from './screens/SignUpScreen_2';
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
-        library: { screen: LibraryScreen },
         login: { screen: LoginScreen },
+        library: { screen: LibraryScreen },
         sign_up: { 
           screen: createBottomTabNavigator({
             sign_up_1: { screen: SignUpScreen_1 },

@@ -19,15 +19,8 @@ class LoginScreen extends Component {
 
     onLoginPress() {
         const { email, password } = this.props;
-        Alert.alert(
-            'Login Pressed',
-            'Hurray!!!',
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            { cancelable: false }
-          )
         this.props.loginUser({ email, password });
+        this.props.navigation.navigate('library');
     }
 
     onSignUpPress() {
@@ -52,6 +45,7 @@ class LoginScreen extends Component {
             return (  
                 <View>
                     <TextInput
+                        keyboardType={'email-address'}
                         autoCapitalize = 'none'
                         underlineColorAndroid="transparent" 
                         placeholder="Email" 
@@ -67,6 +61,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -82,6 +77,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -97,6 +93,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -112,6 +109,7 @@ class LoginScreen extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -262,7 +260,6 @@ const styles = {
         backgroundColor: '#FFAB00',
         borderRadius: 5,
         height: 45,
-        marginTop: 50,
     },
     rectangle: {
         width: 'auto',
@@ -270,7 +267,8 @@ const styles = {
         backgroundColor: 'blue',
         marginTop: 50,
         marginLeft: 120,
-        marginRight: 120
+        marginRight: 120,
+        marginBottom: 50
     }
     
   };

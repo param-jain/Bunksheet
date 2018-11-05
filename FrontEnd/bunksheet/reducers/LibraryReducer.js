@@ -1,7 +1,6 @@
 import { LIBRARY_SEARCHTEXT_CHANGED } from '../actions/types';
 
 const INITIAL_STATE = {
-    loading: false,
     data: [],
     error: null,
     searchBarText: ''

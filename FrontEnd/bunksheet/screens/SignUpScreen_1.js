@@ -40,6 +40,7 @@ class SignUpScreen_1 extends Component {
             return (  
                 <View>
                     <TextInput
+                        keyboardType={'email-address'}
                         autoCapitalize = 'none'
                         underlineColorAndroid="transparent" 
                         placeholder="Email" 
@@ -55,6 +56,7 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -70,6 +72,7 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -85,6 +88,7 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 
@@ -100,6 +104,7 @@ class SignUpScreen_1 extends Component {
                 return (  
                     <View>
                         <TextInput
+                            keyboardType={'email-address'}
                             autoCapitalize = 'none'
                             underlineColorAndroid="transparent" 
                             placeholder="Email" 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Keyboard, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import { View, KeyboardAvoidingView, FlatList, Icon, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Header, List, ListItem, SearchBar } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -10,6 +10,11 @@ class LibraryScreen extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+          loading: false,
+          searchLoad: false,
+        }
 
         this.arrayHolder = [];
     }
@@ -50,7 +55,8 @@ class LibraryScreen extends Component {
         );
       };
 
-      searchFilterFunction = text => {
+      searchFilterFunction = (text) => {
+        this.setState({ searchLoad: true , searchClearIcon: true });
         text=text.trim();
         this.props.librarySearchTextChanged(text);
         console.log(this.arrayHolder);
@@ -61,32 +67,42 @@ class LibraryScreen extends Component {
         });
         this.setState({
           data: newData,
+          searchLoad: false
         });
       };
 
       handleOnClearText = () => {
+        Keyboard.dismiss();
+        this.setState({
+          searchLoad: false,
+          searchClearIcon: false,
+        });
         if(this.search != null) {
-            this.search.clearText();   
+            this.search.clearText(); 
+            this.searchFilterFunction("");  
         }
     }
 
       renderHeader = () => {
         return (
           <SearchBar
-            placeholder="Find me a Book..."
+            placeholder="  Find me a Book ..."
             lightTheme
             round
-            clearIcon={{color: '#FF9800'}}
+            showLoadingIcon={this.state.searchLoad}
+            placeholderTextColor='#FF6F00'
+            icon={{color: '#FF6F00'}}
+            clearIcon={{ color: '#FF6F00' }}
             onChangeText={text => this.searchFilterFunction(text)}
             onClearText={()=>this.handleOnClearText()}
             autoCorrect={false}
-          />
+            value={this.props.searchBarText}
+        />
         );
       };
-    
 
-    onBackLoginPress() {
-        this.props.navigation.navigate('login');
+    toBookDetail() {
+      this.props.navigation.navigate('login');
     }
 
     render() {
@@ -113,19 +129,21 @@ class LibraryScreen extends Component {
 
                         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
                             <FlatList
-                            data={this.state.data}
-                            renderItem={({ item }) => (
+                              keyboardShouldPersistTaps='always'
+                              data={this.state.data}
+                              renderItem={({ item }) => (
                                 <ListItem
                                 roundAvatar
                                 title={`${item.name.first} ${item.name.last}`}
                                 subtitle={item.email}
                                 avatar={{ uri: item.picture.thumbnail }}
                                 containerStyle={{ borderBottomWidth: 0 }}
+                                onPress={() => this.toBookDetail()}
                                 />
-                            )}
-                            keyExtractor={item => item.email}
-                            ItemSeparatorComponent={this.renderSeparator}
-                            ListHeaderComponent={this.renderHeader}
+                              )}
+                              keyExtractor={item => item.email}
+                              ItemSeparatorComponent={this.renderSeparator}
+                              ListHeaderComponent={this.renderHeader}
                             />
                         </List>
                     </View>
@@ -140,16 +158,34 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
         backgroundColor: 'transparent'
-      }
+      },
+      searchSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    searchIcon: {
+        padding: 10,
+    },
+    input: {
+        flex: 1,
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
+        paddingLeft: 0,
+        backgroundColor: '#fff',
+        color: '#424242',
+    },
 });
 
 const mapStateToProps = (state) => {
     return {
-        loading: this.state.loading,
-        data: this.state.data,
-        error: this.state.error,
-        searchBarText: this.state.searchBarText
+          data: state.data,
+          error: state.error,
+        searchBarText: state.searchBarText
     }
 }
 
-export default connect(mapStateToProps, { librarySearchBarTextChanged })(LibraryScreen);
+export default connect(mapStateToProps, { librarySearchTextChanged })(LibraryScreen);
