@@ -8,7 +8,8 @@ import {
     SIGNUP_F_NAME_CHANGED,
     SIGNUP_L_NAME_CHANGED,
     SIGNUP_REG_ID_CHANGED,
-    SIGNUP_ATTEMPTED
+    SIGNUP_ATTEMPTED,
+    LIBRARY_SEARCHTEXT_CHANGED
 } from './types';
 
 
@@ -73,5 +74,13 @@ export const signupRegIDChanged = (text) => {
 export const signupCreateAccount = ({ email, password, fName, lName, regID }) => {
     return {
         type: SIGNUP_ATTEMPTED,
+    }
+};
+
+// Library Screen
+export const librarySearchTextChanged = (text) => {
+    return {
+        type: LIBRARY_SEARCHTEXT_CHANGED,
+        payload: text
     }
 };

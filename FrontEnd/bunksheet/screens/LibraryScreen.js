@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, KeyboardAvoidingView, FlatList, Keyboard, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Header, List, ListItem, SearchBar } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+
+import { librarySearchTextChanged } from '../actions/index';
 
 class LibraryScreen extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = { 
-            loading: false,
-            data: [],
-            error: null
-        };
 
         this.arrayHolder = [];
     }
@@ -22,7 +19,7 @@ class LibraryScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://randomuser.me/api/?&results=50`;
+        const url = `https://randomuser.me/api/?&results=20`;
         this.setState({ loading: true });
     
         fetch(url)
@@ -54,6 +51,8 @@ class LibraryScreen extends Component {
       };
 
       searchFilterFunction = text => {
+        text=text.trim();
+        this.props.librarySearchTextChanged(text);
         console.log(this.arrayHolder);
         const newData = this.arrayHolder.filter(item => {
           const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
@@ -65,15 +64,21 @@ class LibraryScreen extends Component {
         });
       };
 
+      handleOnClearText = () => {
+        if(this.search != null) {
+            this.search.clearText();   
+        }
+    }
+
       renderHeader = () => {
         return (
           <SearchBar
             placeholder="Find me a Book..."
-            darkTheme
+            lightTheme
             round
-            clearIcon={{color: 'red'}}
+            clearIcon={{color: '#FF9800'}}
             onChangeText={text => this.searchFilterFunction(text)}
-            onClearText={this.setState({ data: [] })}
+            onClearText={()=>this.handleOnClearText()}
             autoCorrect={false}
           />
         );
@@ -138,4 +143,13 @@ const styles = StyleSheet.create({
       }
 });
 
-export default LibraryScreen;
+const mapStateToProps = (state) => {
+    return {
+        loading: this.state.loading,
+        data: this.state.data,
+        error: this.state.error,
+        searchBarText: this.state.searchBarText
+    }
+}
+
+export default connect(mapStateToProps, { librarySearchBarTextChanged })(LibraryScreen);

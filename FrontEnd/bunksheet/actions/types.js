@@ -11,4 +11,4 @@ export const SIGNUP_L_NAME_CHANGED = 'sign_up_l_name_changed';
 export const SIGNUP_REG_ID_CHANGED = 'sign_up_reg_id_changed';
 export const SIGNUP_ATTEMPTED = 'sign_up_attempted';
 
-
+export const LIBRARY_SEARCHTEXT_CHANGED = 'library_searchtext_changed';
