@@ -140,7 +140,7 @@ class SignUpScreen_1 extends Component {
                 </View>        
             );
         } else { 
-            if (password.length < 6) {
+            if (password.length < 8) {
                 return (
                     <View>
                          <TextInput
@@ -152,7 +152,7 @@ class SignUpScreen_1 extends Component {
                             onChangeText={this.onPasswordChange.bind(this)}
                             value={this.props.password}
                         />
-                        <Text style={styles.errorMessage}>Password should be at least 6 characters long</Text>
+                        <Text style={styles.errorMessage}>Password should be at least 8 characters long</Text>
                     </View>
                 );
             } else {
@@ -194,7 +194,7 @@ class SignUpScreen_1 extends Component {
                 </View>        
             );
         } else {
-            if (verifyPassword.length < 6) {
+            if (verifyPassword.length < 8) {
                 return (
                     <View>
                          <TextInput
@@ -206,7 +206,7 @@ class SignUpScreen_1 extends Component {
                             onChangeText={this.onVerifyPasswordChange.bind(this)}
                             value={this.props.verifyPassword}
                         />
-                        <Text style={styles.errorMessage}>Password should be at least 6 characters long</Text>
+                        <Text style={styles.errorMessage}>Password should be at least 8 characters long</Text>
                     </View>
                 );
             } else if (verifyPassword!=this.props.password) {

@@ -140,7 +140,7 @@ class LoginScreen extends Component {
                 </View>        
             );
         } else { 
-            if (password.length < 6) {
+            if (password.length < 8) {
                 return (
                     <View>
                          <TextInput
@@ -152,7 +152,7 @@ class LoginScreen extends Component {
                             onChangeText={this.onPasswordChange.bind(this)}
                             value={this.props.password}
                         />
-                        <Text style={styles.errorMessage}>Password should be at least 6 characters long</Text>
+                        <Text style={styles.errorMessage}>Password should be at least 8 characters long</Text>
                     </View>
                 );
             } else {
