@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Keyboard, Text, View, TextInput, Alert, TouchableWithoutFeedback, Image, KeyboardAvoidingView, StatusBar } from 'react-native';
+import {Keyboard, Text, View, TextInput, Alert, TouchableWithoutFeedback, Image, KeyboardAvoidingView, StatusBar, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import { emailChanged, passwordChanged, loginUser } from '../actions/index';
 
+import Amplify, { Auth } from 'aws-amplify';
+import awsConfig from '../sensitive_info/aws-exports';
+
+Amplify.configure({ Auth: awsConfig });
+
 class LoginScreen extends Component {
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            errorMessage: '',
+            isAuthenticating: false
+        }
+    }
 
     onEmailChange(text) {
         text=text.trim();
@@ -20,16 +35,29 @@ class LoginScreen extends Component {
     onLoginPress() {
         const { email, password } = this.props;
         this.props.loginUser({ email, password });
-        this.props.navigation.navigate('library');
+
+        this.setState({ isAuthenticating: true, errorMessage: '' });
+
+        Auth.signIn(this.props.email, this.props.password)
+            .then(user => {
+                    this.setState({ isAuthenticating: false });
+                    this.props.navigation.navigate('library', user); 
+                })
+            .catch(err => { 
+                this.setState({ isAuthenticating: false });
+                this.setState({ errorMessage: err.message }); 
+            });
+
     }
 
     onSignUpPress() {
+        this.setState({ errorMessage: '' });
         this.props.navigation.navigate('sign_up_1');
     }
 
     loginButtonDisabled = (email, password) => {
         if (
-                (password.length<6)||
+                (password.length<8)||
                 (email.indexOf('.') === -1)||
                 (email.split('').filter(x => x === '@').length !== 1)||
                 (email.length < 5)
@@ -189,12 +217,20 @@ class LoginScreen extends Component {
                         <Text style={styles.logoText}>BunkSheet</Text>
                         {this.validateEmail(this.props.email)}
                         {this.validatePassword(this.props.password)}
+                        <Spinner visible={this.state.isAuthenticating} />
+                        <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>
                         <Button
                             buttonStyle={styles.loginButton}
                             onPress={() => this.onLoginPress()}
                             title="Login"
                             disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
                         />
+                        <TouchableOpacity 
+                            style={{flexDirection:'row', justifyContent: 'space-around', marginTop: 10 }} 
+                            onPress={() => this.props.navigation.navigate('forgot_password')}
+                            >
+                            <Text style={{color: '#424242'}} >Forgotten Password?</Text>
+                        </TouchableOpacity>
                         <View style={styles.rectangle} />
                     <Button
                             buttonStyle={styles.signUpButton}

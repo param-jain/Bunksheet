@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     email: '', 
     password: '', 
     emailTouched: false, 
-    passwordTouched: false,
+    passwordTouched: false
 };
 
 export default (state = INITIAL_STATE, action) => {

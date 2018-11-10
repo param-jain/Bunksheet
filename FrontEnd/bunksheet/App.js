@@ -10,16 +10,20 @@ import LoginScreen from './screens/LoginScreen';
 import LibraryScreen from './screens/LibraryScreen';
 import SignUpScreen_1 from './screens/SignUpScreen_1';
 import SignUpScreen_2 from './screens/SignUpScreen_2';
+import ConfirmationScreen from './screens/ConfirmationScreen'
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
         login: { screen: LoginScreen },
+        forgot_password: { screen: ForgotPasswordScreen },
         library: { screen: LibraryScreen },
         sign_up: { 
           screen: createBottomTabNavigator({
             sign_up_1: { screen: SignUpScreen_1 },
             sign_up_2: { screen: SignUpScreen_2 },
+            otp_confirmation: { screen: ConfirmationScreen }
           }, {
             navigationOptions: {
               tabBarVisible: false

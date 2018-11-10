@@ -248,11 +248,11 @@ class SignUpScreen_1 extends Component {
 
     enableNextButton = (email, password, verifyPassword) => {
         if (
-            (password.length<6)||
+            (password.length<8)||
             (email.indexOf('.') === -1)||
             (email.split('').filter(x => x === '@').length !== 1)||
             (email.length < 5)||
-            (verifyPassword.length < 6)||
+            (verifyPassword.length < 8)||
             (verifyPassword!=password)
             ) {
                 return (

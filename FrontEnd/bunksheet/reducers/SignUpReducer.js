@@ -5,6 +5,7 @@ import {
     SIGNUP_F_NAME_CHANGED,
     SIGNUP_L_NAME_CHANGED,
     SIGNUP_REG_ID_CHANGED,
+    SIGNUP_OTP_CHANGED,
     SIGNUP_ATTEMPTED
 } from '../actions/types';
 
@@ -22,6 +23,8 @@ const INITIAL_STATE = {
     lNameTouched: '',
     regID: '',
     regIDTouched: false,
+    OTP: '',
+    OTPTouched: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -61,6 +64,9 @@ export default (state = INITIAL_STATE, action) => {
                 regID: '',
                 regIDTouched: false,
             };
+
+        case SIGNUP_OTP_CHANGED:
+            return { ...state, OTP: action.payload, OTPTouched: true };
 
         default: 
             return state;

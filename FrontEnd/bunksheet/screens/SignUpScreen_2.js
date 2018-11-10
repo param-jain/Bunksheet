@@ -27,20 +27,51 @@ import {
   signupCreateAccount
 } from '../actions/index'
 
+import  Amplify, { Auth } from 'aws-amplify';
+import awsConfig from '../sensitive_info/aws-exports';
+
+Amplify.configure({ Auth: awsConfig });
+
 
 
 class SignUpScreen_2 extends Component {
 
-    state = { isAuthenticating: false }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        errorMessage: '',
+        isAuthenticating: false
+    }
+}
 
     backButtonNavigation() {
+        this.setState({ errorMessage: '' });
         this.props.navigation.navigate('sign_up_1');
     }
 
     proceedToSignUp() {
         const { email, password, fName, lName, regID } = this.props;
         this.props.signupCreateAccount(email, password, fName, lName, regID);
-        this.props.navigation.navigate('library');
+        this.setState({ isAuthenticating: true, errorMessage: '' });
+        Auth.signUp({
+          username: email,
+          password: password,
+          attributes: {
+            email: email,
+            name: fName,
+            family_name: lName
+          }
+        })
+          .then(data => { 
+            this.setState({ isAuthenticating: false });
+            this.props.navigation.navigate('otp_confirmation', data);
+          })
+          .catch(err => { 
+            this.setState({ isAuthenticating: false });
+            this.setState({ errorMessage: err.message }) 
+          });
+
     }
 
     onFNameChange(text) {
@@ -219,8 +250,8 @@ class SignUpScreen_2 extends Component {
           >
               <Icon
                   raised
-                  name = 'check'
-                  type = 'fontawesome'
+                  name='arrow-right'
+                  type='entypo'
                   color = '#777777'
                   style ={styles.checkButtonLayout} />
         </TouchableOpacity>
@@ -233,9 +264,9 @@ class SignUpScreen_2 extends Component {
           >
               <Icon
                   raised
-                  name = 'check'
-                  type = 'fontawesome'
-                  color = '#1B5E20'
+                  name='arrow-right'
+                  type='entypo'
+                  color = '#E65100'
                   style ={styles.checkButtonLayout} />
         </TouchableOpacity>
         );
@@ -272,6 +303,7 @@ class SignUpScreen_2 extends Component {
                             {this.validateLName(lName)}
                           </View>
                           {this.validateRegID(regID)}
+                          <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>
                           {this.enableCheckButton(email, password, fName, lName, regID)}
                         </View>
                     </View>

@@ -9,6 +9,7 @@ import {
     SIGNUP_L_NAME_CHANGED,
     SIGNUP_REG_ID_CHANGED,
     SIGNUP_ATTEMPTED,
+    SIGNUP_OTP_CHANGED,
     LIBRARY_SEARCHTEXT_CHANGED
 } from './types';
 
@@ -75,6 +76,14 @@ export const signupCreateAccount = ({ email, password, fName, lName, regID }) =>
     return {
         type: SIGNUP_ATTEMPTED,
     }
+};
+
+// OTP Confirmation Screen
+export const signupOTPChanged = (text) => {
+    return {
+        type: SIGNUP_OTP_CHANGED,
+        payload: text
+    };
 };
 
 // Library Screen
