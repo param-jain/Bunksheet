@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   StatusBar,
+  Keyboard,
   View 
 } from 'react-native';
 
