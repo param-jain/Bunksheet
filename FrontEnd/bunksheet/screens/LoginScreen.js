@@ -58,6 +58,7 @@ class LoginScreen extends Component {
     onForgotPwdPress() {
         this.setState({ errorMessage: '' });
         this.props.navigation.navigate('forgot_password');
+    }
 
     loginButtonDisabled = (email, password) => {
         if (
