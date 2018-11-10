@@ -55,6 +55,10 @@ class LoginScreen extends Component {
         this.props.navigation.navigate('sign_up_1');
     }
 
+    onForgotPwdPress() {
+        this.setState({ errorMessage: '' });
+        this.props.navigation.navigate('forgot_password');
+
     loginButtonDisabled = (email, password) => {
         if (
                 (password.length<8)||
@@ -227,7 +231,7 @@ class LoginScreen extends Component {
                         />
                         <TouchableOpacity 
                             style={{flexDirection:'row', justifyContent: 'space-around', marginTop: 10 }} 
-                            onPress={() => this.props.navigation.navigate('forgot_password')}
+                            onPress={() => this.onForgotPwdPress()}
                             >
                             <Text style={{color: '#424242'}} >Forgotten Password?</Text>
                         </TouchableOpacity>
@@ -301,10 +305,10 @@ const styles = {
         width: 'auto',
         height: 1,
         backgroundColor: 'blue',
-        marginTop: 50,
+        marginTop: 30,
         marginLeft: 120,
         marginRight: 120,
-        marginBottom: 50
+        marginBottom: 30
     }
     
   };

@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   StatusBar,
   Keyboard,
+  Dimensions,
   View 
 } from 'react-native';
 
@@ -314,6 +315,13 @@ export default class ForgotPasswordScreen extends Component {
                             </TouchableOpacity>
                         </View>
 
+                        <View style={styles.logoImageView}>
+                            <Image 
+                                style={styles.logoImage}
+                                source={require('../images/confused-brown-md.png')}
+                            />
+                        </View>
+
                         <View style={styles.loginFormView}>
                             <Text style={styles.logoText}>Forgot Password</Text>
                             
@@ -402,6 +410,14 @@ const styles = {
         borderRadius: 5,
         height: 45,
         marginTop: 10,
+    },
+    logoImage: {
+        marginTop: 7,
+    },
+    logoImageView: { 
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 }
