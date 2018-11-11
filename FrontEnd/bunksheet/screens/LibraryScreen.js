@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {librarySearchTextChanged} from '../actions/index'
 
 class LibraryScreen extends Component {
 
@@ -50,7 +51,7 @@ class LibraryScreen extends Component {
           }
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <StatusBar barStyle = "dark-content" hidden = {true} translucent = {true}/>
+                <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.container}>
                         <Header
@@ -111,7 +112,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
+      searchBarText: state.library.searchBarText,
+      searchBarTextTouched: state.library.searchBarTextTouched 
     }
 }
 
-export default connect(mapStateToProps, { })(LibraryScreen);
+export default connect(mapStateToProps, {librarySearchTextChanged})(LibraryScreen);

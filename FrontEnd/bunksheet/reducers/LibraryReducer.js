@@ -3,14 +3,15 @@ import { LIBRARY_SEARCHTEXT_CHANGED } from '../actions/types';
 const INITIAL_STATE = {
     data: [],
     error: null,
-    searchBarText: ''
+    searchBarText: '',
+    searchBarTextTouched: false
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
 
         case LIBRARY_SEARCHTEXT_CHANGED:
-            return { ...state, searchBarText: action.payload };
+            return { ...state, searchBarText: action.payload, searchBarTextChanged: true };
 
         default: 
             return state;
