@@ -60,7 +60,8 @@ class SignUpScreen_2 extends Component {
           attributes: {
             email: email,
             name: fName,
-            family_name: lName
+            family_name: lName,
+            'custom:college_reg_id': regID
           }
         })
           .then(data => { 
