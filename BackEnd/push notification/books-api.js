@@ -15,7 +15,7 @@ request({
     url:'https://www.googleapis.com/books/v1/volumes?q=isbn:1449344682',
     json:true
 },(error,response,body)=>{
-    console.log(body);
+    console.log(JSON.stringify(body,undefined,2));
     
 }
 );
