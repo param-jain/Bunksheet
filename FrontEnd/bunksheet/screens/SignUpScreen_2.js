@@ -32,7 +32,7 @@ import awsConfig from '../sensitive_info/aws-exports';
 
 Amplify.configure({ Auth: awsConfig });
 
-
+import axios from 'axios';
 
 class SignUpScreen_2 extends Component {
 
@@ -54,23 +54,22 @@ class SignUpScreen_2 extends Component {
         const { email, password, fName, lName, regID } = this.props;
         this.props.signupCreateAccount(email, password, fName, lName, regID);
         this.setState({ isAuthenticating: true, errorMessage: '' });
-        Auth.signUp({
-          username: email,
-          password: password,
-          attributes: {
-            email: email,
-            name: fName,
-            family_name: lName,
-            'custom:college_reg_id': regID
-          }
+        
+        axios.get(`https://ya9g6taoj0.execute-api.ap-south-1.amazonaws.com/prod/post/testget`, { 
+          params: {
+            Reg_ID: regID,
+            First_Name: fName,
+            Last_Name: lName,
+            Email_ID: email
+          } 
         })
-          .then(data => { 
+          .then ( res => {
+            console.log(res);
             this.setState({ isAuthenticating: false });
-            this.props.navigation.navigate('otp_confirmation', data);
           })
-          .catch(err => { 
+          .catch ( err => {
+            console.log(err.data);
             this.setState({ isAuthenticating: false });
-            this.setState({ errorMessage: err.message }) 
           });
 
     }
