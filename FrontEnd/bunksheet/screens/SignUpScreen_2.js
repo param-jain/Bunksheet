@@ -68,7 +68,7 @@ class SignUpScreen_2 extends Component {
             this.setState({ isAuthenticating: false });
           })
           .catch ( err => {
-            console.log(err.data);
+            console.log(err);
             this.setState({ isAuthenticating: false });
           });
 

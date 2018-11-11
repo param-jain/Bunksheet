@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Icon, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
-import { Header, List, ListItem, SearchBar } from 'react-native-elements';
+import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
-
-import { librarySearchTextChanged } from '../actions/index';
 
 class LibraryScreen extends Component {
 
@@ -42,69 +40,6 @@ class LibraryScreen extends Component {
           });
       };
 
-      renderSeparator = () => {
-        return (
-          <View
-            style={{
-              height: 1,
-              width: '86%',
-              backgroundColor: '#CED0CE',
-              marginLeft: '14%',
-            }}
-          />
-        );
-      };
-
-      searchFilterFunction = (text) => {
-        this.setState({ searchLoad: true , searchClearIcon: true });
-        text=text.trim();
-        this.props.librarySearchTextChanged(text);
-        console.log(this.arrayHolder);
-        const newData = this.arrayHolder.filter(item => {
-          const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
-          const textData = text.toUpperCase();
-          return itemData.indexOf(textData) > -1;
-        });
-        this.setState({
-          data: newData,
-          searchLoad: false
-        });
-      };
-
-      handleOnClearText = () => {
-        Keyboard.dismiss();
-        this.setState({
-          searchLoad: false,
-          searchClearIcon: false,
-        });
-        if(this.search != null) {
-            this.search.clearText(); 
-            this.searchFilterFunction("");  
-        }
-    }
-
-      renderHeader = () => {
-        return (
-          <SearchBar
-            placeholder="  Find me a Book ..."
-            lightTheme
-            round
-            showLoadingIcon={this.state.searchLoad}
-            placeholderTextColor='#FF6F00'
-            icon={{color: '#FF6F00'}}
-            clearIcon={{ color: '#FF6F00' }}
-            onChangeText={text => this.searchFilterFunction(text)}
-            onClearText={()=>this.handleOnClearText()}
-            autoCorrect={false}
-            value={this.props.searchBarText}
-        />
-        );
-      };
-
-    toBookDetail() {
-      this.props.navigation.navigate('login');
-    }
-
     render() {
         if (this.state.loading) {
             return (
@@ -120,32 +55,32 @@ class LibraryScreen extends Component {
                     <View style={styles.container}>
                         <Header
                             backgroundColor="#FF9800"
-                            outerContainerStyles={{borderBottomWidth: 1, borderColor: '#000000'}}
-                            centerContainerStyle={{paddingTop: 20}}
-                            rightContainerStyle={{paddingTop: 20}}
-                            centerComponent={{ text: 'Library', style: { color: '#fff', fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
+                            outerContainerStyles={{borderBottomWidth: 4, borderColor: '#000000'}}
+                            centerContainerStyle={{paddingTop: 5}}
+                            rightContainerStyle={{paddingTop: 5}}
+                            centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 19, paddingTop: 15, fontWeight: 'bold' } }}
                             rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff' }}
                         />
 
-                        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-                            <FlatList
-                              keyboardShouldPersistTaps='always'
-                              data={this.state.data}
-                              renderItem={({ item }) => (
-                                <ListItem
-                                roundAvatar
-                                title={`${item.name.first} ${item.name.last}`}
-                                subtitle={item.email}
-                                avatar={{ uri: item.picture.thumbnail }}
-                                containerStyle={{ borderBottomWidth: 0 }}
-                                onPress={() => this.toBookDetail()}
-                                />
-                              )}
-                              keyExtractor={item => item.email}
-                              ItemSeparatorComponent={this.renderSeparator}
-                              ListHeaderComponent={this.renderHeader}
-                            />
-                        </List>
+                        <View style={styles.sectionStyle}>
+                          <View style={{marginLeft: 15, marginRight: 10, alignContent:'center'}}>
+                            <Icon name='magnifying-glass' type='entypo' color='#FF8F00'/>
+                          </View>
+                          <TextInput
+                            autoCapitalize = 'none'
+                            underlineColorAndroid="transparent" 
+                            placeholder="Find me a Book ..." 
+                            placeholderTextColor="#616161" 
+                            style={styles.searchBarTextInput}
+                            //onChangeText={this.onSearchTextChange.bind(this)}
+                            //value={this.props.email}
+                          />
+                          <View style={{marginRight: 5, alignContent:'center'}}>
+                            <Icon name='cross' type='entypo' color='#FF8F00'/>
+                          </View>
+                        </View>
+                       
+
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
@@ -154,38 +89,29 @@ class LibraryScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        flex: 1,
-        backgroundColor: 'transparent'
-      },
-      searchSection: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
+  container: {
+      flexDirection: 'column',
+      flex: 1,
+      backgroundColor: 'transparent'
     },
-    searchIcon: {
-        padding: 10,
-    },
-    input: {
-        flex: 1,
-        paddingTop: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        paddingLeft: 0,
-        backgroundColor: '#fff',
-        color: '#424242',
-    },
+    searchBarTextInput: {
+      flex: 1
+  },
+  sectionStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
+    borderWidth: 1,
+    borderColor: '#F57C00',
+    height: 35,
+    borderRadius: 15,
+    margin: 5
+  }
 });
 
 const mapStateToProps = (state) => {
     return {
-          data: state.data,
-          error: state.error,
-        searchBarText: state.searchBarText
     }
 }
 
-export default connect(mapStateToProps, { librarySearchTextChanged })(LibraryScreen);
+export default connect(mapStateToProps, { })(LibraryScreen);

@@ -16,9 +16,9 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
+        library: { screen: LibraryScreen },
         login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
-        library: { screen: LibraryScreen },
         sign_up: { 
           screen: createBottomTabNavigator({
             sign_up_1: { screen: SignUpScreen_1 },
