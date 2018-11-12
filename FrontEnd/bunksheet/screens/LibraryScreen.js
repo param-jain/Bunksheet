@@ -26,7 +26,7 @@ class LibraryScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://randomuser.me/api/?&results=2000`;
+        const url = `https://randomuser.me/api/?&results=20`;
         this.setState({ loading: true });
     
         fetch(url)
@@ -153,6 +153,23 @@ class LibraryScreen extends Component {
       </List>
       );
   }
+
+toNotificationScreen() {
+  this.props.navigation.navigate('libraryNotifications');
+}
+
+  renderHeader = () => {
+    return(
+      <Header
+        backgroundColor="#FF9800"
+        outerContainerStyles={{borderBottomWidth: 4, borderColor: '#000000'}}
+        centerContainerStyle={{paddingTop: 5}}
+        rightContainerStyle={{paddingTop: 5}}
+        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 19, paddingTop: 15, fontWeight: 'bold' } }}
+        rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27 }}
+      />
+    );
+  }
     
 
     render() {
@@ -168,14 +185,8 @@ class LibraryScreen extends Component {
                 <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.container}>
-                        <Header
-                            backgroundColor="#FF9800"
-                            outerContainerStyles={{borderBottomWidth: 4, borderColor: '#000000'}}
-                            centerContainerStyle={{paddingTop: 5}}
-                            rightContainerStyle={{paddingTop: 5}}
-                            centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 19, paddingTop: 15, fontWeight: 'bold' } }}
-                            rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff' }}
-                        />
+                        
+                        {this.renderHeader()}
 
                         <View style={styles.sectionStyle}>
                           {this.searchIconFunctionality()}

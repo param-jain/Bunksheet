@@ -12,6 +12,7 @@ import SignUpScreen_1 from './screens/SignUpScreen_1';
 import SignUpScreen_2 from './screens/SignUpScreen_2';
 import ConfirmationScreen from './screens/ConfirmationScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import LibraryNotificationScreen from './screens/LibraryNotificationScreen';
 
 export default class App extends React.Component {
   render() {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
         library: { screen: LibraryScreen },
         login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
+        libraryNotifications: { screen: LibraryNotificationScreen},
         sign_up: { 
           screen: createBottomTabNavigator({
             sign_up_1: { screen: SignUpScreen_1 },
