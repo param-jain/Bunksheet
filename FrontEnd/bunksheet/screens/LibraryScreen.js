@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {librarySearchTextChanged} from '../actions/index'
 
 class LibraryScreen extends Component {
 
@@ -13,6 +12,8 @@ class LibraryScreen extends Component {
         this.state = {
           loading: false,
           searchLoad: false,
+          searchBarText: '',
+          searchBarTextTouched: false
         }
 
         this.arrayHolder = [];
@@ -41,6 +42,66 @@ class LibraryScreen extends Component {
           });
       };
 
+    onSearchTextChange(text) {
+      text=text.trim();
+      this.setState({
+        searchBarText: text,
+        searchBarTextTouched: true
+      });
+    }
+
+    modifySearchBar = () => {
+        return (
+          <TextInput
+            ref="searchBarInput"
+            autoCapitalize = 'none'
+            underlineColorAndroid="transparent" 
+            placeholder="Find me a Book ..." 
+            placeholderTextColor="#616161" 
+            style={styles.searchBarTextInput}
+            onChangeText={(text) => this.onSearchTextChange(text)}
+            value={this.state.searchBarText}
+          />
+        );
+    }
+
+    clearSearchText() {
+      this.setState({
+        searchBarText: '',
+        searchBarTextTouched: false
+      });
+    }
+
+    crossIconFunctionality = () => {
+      console.log(this.state.searchBarTextTouched);
+      console.log(this.state.searchBarText);
+      if (this.state.searchBarTextTouched) {
+        return (
+          <View style={{marginRight: 5, alignContent:'center'}}>
+            <Icon name='cross' type='entypo' color='#FF8F00' onPress={() => this.clearSearchText()}/>
+          </View>
+        );
+      } else {
+        return (
+          <View style={{marginRight: 5, alignContent:'center'}}>
+            <Icon name='cross' type='entypo' color='#777777' disabled onPress={() => this.clearSearchText()}/>
+          </View>
+        );
+      }
+    }
+
+    focusTextInput() {
+      this.refs.searchBarInput.focus();
+    }
+
+    searchIconFunctionality = () => {
+      return (
+        <View style={{marginLeft: 15, marginRight: 10, alignContent:'center'}}>
+          <Icon name='magnifying-glass' type='entypo' color='#FF8F00' onPress={() => this.focusTextInput()} />
+        </View>
+      );
+    }
+
     render() {
         if (this.state.loading) {
             return (
@@ -64,21 +125,9 @@ class LibraryScreen extends Component {
                         />
 
                         <View style={styles.sectionStyle}>
-                          <View style={{marginLeft: 15, marginRight: 10, alignContent:'center'}}>
-                            <Icon name='magnifying-glass' type='entypo' color='#FF8F00'/>
-                          </View>
-                          <TextInput
-                            autoCapitalize = 'none'
-                            underlineColorAndroid="transparent" 
-                            placeholder="Find me a Book ..." 
-                            placeholderTextColor="#616161" 
-                            style={styles.searchBarTextInput}
-                            //onChangeText={this.onSearchTextChange.bind(this)}
-                            //value={this.props.email}
-                          />
-                          <View style={{marginRight: 5, alignContent:'center'}}>
-                            <Icon name='cross' type='entypo' color='#FF8F00'/>
-                          </View>
+                          {this.searchIconFunctionality()}
+                          {this.modifySearchBar()}
+                          {this.crossIconFunctionality()}
                         </View>
                        
 
@@ -112,9 +161,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-      searchBarText: state.library.searchBarText,
-      searchBarTextTouched: state.library.searchBarTextTouched 
     }
 }
 
-export default connect(mapStateToProps, {librarySearchTextChanged})(LibraryScreen);
+export default connect(mapStateToProps, {})(LibraryScreen);
