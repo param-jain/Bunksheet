@@ -85,11 +85,3 @@ export const signupOTPChanged = (text) => {
         payload: text
     };
 };
-
-// Library Screen
-export const librarySearchTextChanged = (text) => {
-    return {
-        type: LIBRARY_SEARCHTEXT_CHANGED,
-        payload: text
-    }
-};

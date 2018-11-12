@@ -13,7 +13,9 @@ class LibraryScreen extends Component {
           loading: false,
           searchLoad: false,
           searchBarText: '',
-          searchBarTextTouched: false
+          searchBarTextTouched: false,
+          data:[],
+          error: ''
         }
 
         this.arrayHolder = [];
@@ -24,7 +26,7 @@ class LibraryScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://randomuser.me/api/?&results=20`;
+        const url = `https://randomuser.me/api/?&results=2000`;
         this.setState({ loading: true });
     
         fetch(url)
@@ -46,7 +48,18 @@ class LibraryScreen extends Component {
       text=text.trim();
       this.setState({
         searchBarText: text,
-        searchBarTextTouched: true
+        searchBarTextTouched: true,
+        searchLoad: true
+      });
+      console.log(this.arrayHolder);
+      const newData = this.arrayHolder.filter(item => {
+        const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      this.setState({
+        data: newData,
+        searchLoad: false
       });
     }
 
@@ -66,10 +79,13 @@ class LibraryScreen extends Component {
     }
 
     clearSearchText() {
+      Keyboard.dismiss();
       this.setState({
         searchBarText: '',
-        searchBarTextTouched: false
+        searchBarTextTouched: false,
+        searchLoad: false
       });
+      this.onSearchTextChange("");
     }
 
     crossIconFunctionality = () => {
@@ -79,12 +95,6 @@ class LibraryScreen extends Component {
         return (
           <View style={{marginRight: 5, alignContent:'center'}}>
             <Icon name='cross' type='entypo' color='#FF8F00' onPress={() => this.clearSearchText()}/>
-          </View>
-        );
-      } else {
-        return (
-          <View style={{marginRight: 5, alignContent:'center'}}>
-            <Icon name='cross' type='entypo' color='#777777' disabled onPress={() => this.clearSearchText()}/>
           </View>
         );
       }
@@ -101,6 +111,49 @@ class LibraryScreen extends Component {
         </View>
       );
     }
+
+    toBookDetail() {
+      this.props.navigation.navigate('login');
+    }
+
+    renderSeparator = () => {
+      return (
+        <View
+          style={{
+            height: 1,
+            width: '86%',
+            backgroundColor: '#CED0CE',
+            marginLeft: '14%',
+          }}
+        />
+      );
+    };
+
+
+  renderList = () => {
+      return (
+        <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0 }}>
+          <FlatList
+            keyboardShouldPersistTaps='always'
+            data={this.state.data}
+            renderItem={({ item }) => (
+              <ListItem
+              roundAvatar
+              title={`${item.name.first} ${item.name.last}`}
+              subtitle={item.email}
+              avatar={{ uri: item.picture.thumbnail }}
+              containerStyle={{ borderBottomWidth: 0 }}
+              onPress={() => this.toBookDetail()}
+              />
+            )}
+            keyExtractor={item => item.email}
+            ItemSeparatorComponent={this.renderSeparator}
+            //ListHeaderComponent={this.renderHeader}
+          />
+      </List>
+      );
+  }
+    
 
     render() {
         if (this.state.loading) {
@@ -129,7 +182,8 @@ class LibraryScreen extends Component {
                           {this.modifySearchBar()}
                           {this.crossIconFunctionality()}
                         </View>
-                       
+
+                        {this.renderList()}
 
                     </View>
                 </TouchableWithoutFeedback>

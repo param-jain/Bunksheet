@@ -1,23 +1,19 @@
-Auth.signUp({
-    username: email,
-    password: password,
-    attributes: {
-      email: email,
-      name: fName,
-      family_name: lName,
-      'custom:college_reg_id': regID
-    }
-  })
-    .then(data => { 
-      this.setState({ isAuthenticating: false });
-      this.props.navigation.navigate('otp_confirmation', data);
+   /* axios.get(`https://ya9g6taoj0.execute-api.ap-south-1.amazonaws.com/prod/post/testget`, { 
+      params: {
+        Reg_ID: regID,
+        First_Name: fName,
+        Last_Name: lName,
+        Email_ID: email
+      } 
     })
-    .catch(err => { 
-      this.setState({ isAuthenticating: false });
-      this.setState({ errorMessage: err.message }) 
-    });
-
-
+      .then ( res => {
+        console.log(res);
+        this.setState({ isAuthenticating: false });
+      })
+      .catch ( err => {
+        console.log(err);
+        this.setState({ isAuthenticating: false });
+      });
 
     renderHeader = () => {
       return (
@@ -50,7 +46,7 @@ Auth.signUp({
         />
       );
     };
-
+*/
     searchFilterFunction = (text) => {
       this.setState({ searchLoad: true , searchClearIcon: true });
       text=text.trim();
