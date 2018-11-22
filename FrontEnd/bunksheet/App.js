@@ -19,7 +19,7 @@ export default class App extends React.Component {
     const MainNavigator = createBottomTabNavigator({
         library: { screen: LibraryScreen },
         login: { screen: LoginScreen },
-        forgot_password: { screen: ForgotPasswordScreen },
+        forgot_password: { screen: ForgotPasswordScreen },  
         libraryNotifications: { screen: LibraryNotificationScreen},
         sign_up: { 
           screen: createBottomTabNavigator({

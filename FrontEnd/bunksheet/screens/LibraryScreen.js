@@ -26,18 +26,20 @@ class LibraryScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://randomuser.me/api/?&results=20`;
+        const url = `https://collegebuddy.pythonanywhere.com/api/book/1000`;
         this.setState({ loading: true });
     
         fetch(url)
           .then(res => res.json())
           .then(res => {
             this.setState({
-              data: res.results,
+              //data: res.results,
+              data: res,
               error: res.error || null,
               loading: false,
             });
-            this.arrayHolder = res.results;
+            this.arrayHolder = res;
+            //this.arrayHolder = res.results;
           })
           .catch(error => {
             this.setState({ error, loading: false });
@@ -53,7 +55,7 @@ class LibraryScreen extends Component {
       });
       console.log(this.arrayHolder);
       const newData = this.arrayHolder.filter(item => {
-        const itemData = `${item.name.title.toUpperCase()} ${item.name.first.toUpperCase()} ${item.name.last.toUpperCase()}`;
+        const itemData = `${item.Author.toUpperCase()} ${item.Publisher.toUpperCase()} ${item.Title.toUpperCase()}`;
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -113,7 +115,7 @@ class LibraryScreen extends Component {
     }
 
     toBookDetail() {
-      this.props.navigation.navigate('login');
+      //this.props.navigation.navigate('login');
     }
 
     renderSeparator = () => {
@@ -139,14 +141,14 @@ class LibraryScreen extends Component {
             renderItem={({ item }) => (
               <ListItem
               roundAvatar
-              title={`${item.name.first} ${item.name.last}`}
-              subtitle={item.email}
-              avatar={{ uri: item.picture.thumbnail }}
+              title={item.Title}
+              subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
+              avatar={{ uri: item.Image }}
               containerStyle={{ borderBottomWidth: 0 }}
               onPress={() => this.toBookDetail()}
               />
             )}
-            keyExtractor={item => item.email}
+            keyExtractor={item => item.ISBN}
             ItemSeparatorComponent={this.renderSeparator}
             //ListHeaderComponent={this.renderHeader}
           />
