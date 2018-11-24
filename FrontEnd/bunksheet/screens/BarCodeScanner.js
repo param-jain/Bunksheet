@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window');
 export default class App extends React.Component {
 
   state = {
-    hasCameraPermission: null
+    hasCameraPermission: null,
   }
 
 componentDidMount() {
@@ -23,7 +23,7 @@ componentDidMount() {
 
   permissionDenied() {
     this.setState({
-      hasCameraPermission: null
+      hasCameraPermission: false
     });
     this.getCameraPermissions();
     //this.props.navigation.navigate('library');
