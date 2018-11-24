@@ -13,11 +13,13 @@ import SignUpScreen_2 from './screens/SignUpScreen_2';
 import ConfirmationScreen from './screens/ConfirmationScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import LibraryNotificationScreen from './screens/LibraryNotificationScreen';
+import BarCodeScannerScreen from './screens/BarCodeScanner'
 
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
         library: { screen: LibraryScreen },
+        barCodeScanner: { screen: BarCodeScannerScreen },
         login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },  
         libraryNotifications: { screen: LibraryNotificationScreen},

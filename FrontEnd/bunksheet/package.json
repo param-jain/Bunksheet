@@ -18,6 +18,7 @@
     "react-dom": "^16.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-app-walkthrough": "^1.0.1",
+    "react-native-camera": "^1.4.3",
     "react-native-elements": "^0.19.1",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-scripts": "^2.0.1",

@@ -96,7 +96,7 @@ class LibraryScreen extends Component {
       if (this.state.searchBarTextTouched) {
         return (
           <View style={{marginRight: 5, alignContent:'center'}}>
-            <Icon name='cross' type='entypo' color='#FF8F00' onPress={() => this.clearSearchText()}/>
+            <Icon name='cross' type='entypo' color='#FF8F00' onPress={() => this.clearSearchText() } underlayColor={'#64b5f6'}/>
           </View>
         );
       }
@@ -160,15 +160,21 @@ toNotificationScreen() {
   this.props.navigation.navigate('libraryNotifications');
 }
 
+toBarCodeScannerScreen() {
+  this.props.navigation.navigate('barCodeScanner');
+}
+
   renderHeader = () => {
     return(
       <Header
         backgroundColor="#FF9800"
-        outerContainerStyles={{borderBottomWidth: 4, borderColor: '#000000'}}
-        centerContainerStyle={{paddingTop: 5}}
-        rightContainerStyle={{paddingTop: 5}}
-        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 19, paddingTop: 15, fontWeight: 'bold' } }}
+        outerContainerStyles={{borderBottomWidth: 0.5, borderColor: '#000000'}}
+        centerContainerStyle={{paddingTop: 10}}
+        rightContainerStyle={{paddingTop: 10}}
+        leftContainerStyle={{margin: 10}}
+        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
         rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27 }}
+        leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30 }}
       />
     );
   }
