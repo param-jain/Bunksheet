@@ -173,8 +173,8 @@ toBarCodeScannerScreen() {
         rightContainerStyle={{paddingTop: 10}}
         leftContainerStyle={{margin: 10}}
         centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
-        rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27 }}
-        leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30 }}
+        rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27, underlayColor:'#64b5f6' }}
+        leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30, underlayColor:'#64b5f6' }}
       />
     );
   }

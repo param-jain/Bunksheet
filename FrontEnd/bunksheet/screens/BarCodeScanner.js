@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View, Alert } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Button } from 'react-native-elements';
-import Spinner from 'react-native-loading-spinner-overlay';
+//import Spinner from 'react-native-loading-spinner-overlay';
 
 const { width } = Dimensions.get('window');
 
@@ -35,15 +35,21 @@ componentDidMount() {
 
     if (hasCameraPermission === null) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={styles.permissionText}>Checking for Camera Permission</Text>
-          <Spinner visible={true}/>
-        </View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={styles.permissionText}>Checking for the Permissions</Text>
+            <ActivityIndicator size='large' color='#FFAB40' style={{marginTop: 30}}/>
+          </View>
       );  
     }
     if (hasCameraPermission === false) {
       return(
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.logoImageView}>
+            <Image 
+                style={styles.logoImage}
+                source={require('../images/angry-orange-brown-md.png')}
+            />
+        </View>
         <Text style={styles.permissionText}>Camera Permission Denied</Text>
         <Button 
           onPress = {() => this.permissionDenied()}
@@ -141,4 +147,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: '20%'
   },
+  logoImage: {
+    marginTop: 7,
+  },
+  logoImageView: { 
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
 });
