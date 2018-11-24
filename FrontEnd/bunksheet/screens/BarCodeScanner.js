@@ -36,8 +36,8 @@ componentDidMount() {
     if (hasCameraPermission === null) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={styles.permissionText}>Requesting for Camera Permission</Text>
-          <Spinner />
+          <Text style={styles.permissionText}>Checking for Camera Permission</Text>
+          <Spinner visible={true}/>
         </View>
       );  
     }
@@ -60,7 +60,7 @@ componentDidMount() {
           style={[StyleSheet.absoluteFill, styles.container]}
         >
           <View style={styles.layerTop}>
-            <Text style={styles.description}>Scan your Book to Issue</Text>
+            <Text style={styles.description}>Scan the Book!</Text>
           </View>
           <View style={styles.layerCenter}>
             <View style={styles.layerLeft} />
@@ -127,7 +127,9 @@ const styles = StyleSheet.create({
    },
    description: {
     fontSize: width * 0.09,
-    marginTop: '10%',
+    fontWeight: "600",
+    marginBottom: 10,
+    marginTop: '30%',
     textAlign: 'center',
     //width: '70%',
     color: 'white',
@@ -137,6 +139,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     //width: '70%',
     color: 'white',
-    marginTop: 10
+    marginTop: '20%'
   },
 });
