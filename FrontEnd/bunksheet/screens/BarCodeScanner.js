@@ -2,14 +2,14 @@ import React from 'react';
 import { Dimensions, StyleSheet, Text, View, Alert } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Button } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const { width } = Dimensions.get('window');
 
 export default class App extends React.Component {
 
   state = {
-    hasCameraPermission: null,
-    askedOnce: false
+    hasCameraPermission: null
   }
 
 componentDidMount() {
@@ -23,29 +23,10 @@ componentDidMount() {
 
   permissionDenied() {
     this.setState({
-      hasCameraPermission: null,
-      askedOnce: true
+      hasCameraPermission: null
     });
     this.getCameraPermissions();
-    this.props.navigation.navigate('library');
-  }
-
-  BarCodeScanner = () => {
-    return (
-      <BarCodeScanner
-        onBarCodeRead={(scan) => alert(scan.data)}
-        style={[StyleSheet.absoluteFill, styles.container]}
-      >
-        <Text style={styles.description}>Scan your Book</Text>
-        <View style={styles.layerTop} />
-        <View style={styles.layerCenter}>
-          <View style={styles.layerLeft} />
-          <View style={styles.focused} />
-          <View style={styles.layerRight} />
-        </View>
-        <View style={styles.layerBottom} />
-      </BarCodeScanner>
-    );
+    //this.props.navigation.navigate('library');
   }
 
   render() {
@@ -56,27 +37,49 @@ componentDidMount() {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.permissionText}>Requesting for Camera Permission</Text>
+          <Spinner />
         </View>
-      );
+      );  
     }
     if (hasCameraPermission === false) {
-        return(
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={styles.permissionText}>Camera Permission Denied</Text>
-          <Button 
-            onPress = {() => this.permissionDenied()}
-            title = 'Try Again!'
-            buttonStyle={styles.Ok}
-            />
-        </View>
-        );
+      return(
+       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={styles.permissionText}>Camera Permission Denied</Text>
+        <Button 
+          onPress = {() => this.permissionDenied()}
+          title = 'Allow it Now!'
+          buttonStyle={styles.Ok}
+          />
+       </View>
+      );
     }
-    
-    if (hasCameraPermission === 'granted') {
-      {this.BarCodeScanner()}
-    }
-    }
+    return (
+      <View style={{ flex: 1 }}>
+        <BarCodeScanner
+          onBarCodeRead={(scan) => alert(scan.data)}
+          style={[StyleSheet.absoluteFill, styles.container]}
+        >
+          <View style={styles.layerTop}>
+            <Text style={styles.description}>Scan your Book to Issue</Text>
+          </View>
+          <View style={styles.layerCenter}>
+            <View style={styles.layerLeft} />
+            <View style={styles.focused} />
+            <View style={styles.layerRight} />
+          </View>
+          <View style={styles.layerBottom}>
+            <Text
+            onPress={() => this.props.navigation.navigate('library')}
+            style={styles.cancel}
+            >
+            Cancel
+            </Text>
+          </View>
+        </BarCodeScanner>
+      </View>
+    );
   }
+}
 
 const opacity = 'rgba(0, 0, 0, .6)';
 const styles = StyleSheet.create({
@@ -121,5 +124,19 @@ const styles = StyleSheet.create({
       marginBottom: 5,
       color:'#FF6D00'
 
-   }
+   },
+   description: {
+    fontSize: width * 0.09,
+    marginTop: '10%',
+    textAlign: 'center',
+    //width: '70%',
+    color: 'white',
+  },
+  cancel: {
+    fontSize: width * 0.05,
+    textAlign: 'center',
+    //width: '70%',
+    color: 'white',
+    marginTop: 10
+  },
 });
