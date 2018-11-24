@@ -47,7 +47,7 @@ class LibraryScreen extends Component {
       };
 
     onSearchTextChange(text) {
-      text=text.trim();
+      //text=text.trim();
       this.setState({
         searchBarText: text,
         searchBarTextTouched: true,
