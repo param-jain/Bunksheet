@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window');
 export default class App extends React.Component {
 
   state = {
-    hasCameraPermission: null,
+    hasCameraPermission: false,
   }
 
 componentDidMount() {
