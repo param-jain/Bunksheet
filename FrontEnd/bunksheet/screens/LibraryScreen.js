@@ -101,6 +101,7 @@ class LibraryScreen extends Component {
         );
       }
     }
+    
     focusTextInput() {
       this.refs.searchBarInput.focus();
     }
