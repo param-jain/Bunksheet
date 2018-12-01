@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+
 class LibraryScreen extends Component {
 
     constructor(props) {
