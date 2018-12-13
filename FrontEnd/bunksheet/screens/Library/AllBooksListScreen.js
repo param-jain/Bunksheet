@@ -101,7 +101,7 @@ class AllBooksListScreen extends Component {
         );
       }
     }
-
+    
     focusTextInput() {
       this.refs.searchBarInput.focus();
     }
