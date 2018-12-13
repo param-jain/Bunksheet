@@ -6,22 +6,22 @@ import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
 
-import LoginScreen from './screens/Authentication/LoginScreen';
-import AllBooksListScreen from './screens/Library/AllBooksListScreen';
-import SignUpScreen_1 from './screens/Authentication/SignUpScreen_1';
-import SignUpScreen_2 from './screens/Authentication/SignUpScreen_2';
-import ConfirmationScreen from './screens/Authentication/ConfirmationScreen'
-import ForgotPasswordScreen from './screens/Authentication/ForgotPasswordScreen';
-import LibraryNotificationScreen from './screens/Library/LibraryNotificationScreen';
-import BarCodeScannerScreen from './screens/Library/BarCodeScanner'
+import LoginScreen from './Modules/Authentication/LoginScreen';
+import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
+import SignUpScreen_1 from './Modules/Authentication/SignUpScreen_1';
+import SignUpScreen_2 from './Modules/Authentication/SignUpScreen_2';
+import ConfirmationScreen from './Modules/Authentication/ConfirmationScreen'
+import ForgotPasswordScreen from './Modules/Authentication/ForgotPasswordScreen';
+import LibraryNotificationScreen from './Modules/Library/LibraryNotificationScreen';
+import BarCodeScannerScreen from './Modules/Library/BarCodeScanner'
 
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
         library: { screen: AllBooksListScreen },
-        barCodeScanner: { screen: BarCodeScannerScreen },
         login: { screen: LoginScreen },
-        forgot_password: { screen: ForgotPasswordScreen },  
+        forgot_password: { screen: ForgotPasswordScreen },
+        barCodeScanner: { screen: BarCodeScannerScreen },
         libraryNotifications: { screen: LibraryNotificationScreen},
         sign_up: { 
           screen: createBottomTabNavigator({
