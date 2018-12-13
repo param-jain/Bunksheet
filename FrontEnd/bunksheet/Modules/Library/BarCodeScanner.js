@@ -95,26 +95,36 @@ const styles = StyleSheet.create({
   },
   layerTop: {
     flex: 2,
-    backgroundColor: opacity
+    backgroundColor: opacity,
+    //borderBottomColor: '#ffffff',
+    //borderBottomWidth: 2,
   },
   layerCenter: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderColor: '#ffffff',
+    borderWidth: 2,
   },
   layerLeft: {
     flex: 1,
-    backgroundColor: opacity
+    backgroundColor: opacity,
+    //borderRightColor: '#ffffff',
+   // borderRightWidth: 2,
   },
   focused: {
     flex: 10
   },
   layerRight: {
     flex: 1,
-    backgroundColor: opacity
+    backgroundColor: opacity,
+    //borderLeftColor: '#ffffff',
+   // borderLeftWidth: 2,
   },
   layerBottom: {
     flex: 2,
-    backgroundColor: opacity
+    backgroundColor: opacity,
+   //borderTopColor: '#ffffff',
+   // borderTopWidth: 2,
   },
   Ok: {
     backgroundColor: '#FFAB00',
