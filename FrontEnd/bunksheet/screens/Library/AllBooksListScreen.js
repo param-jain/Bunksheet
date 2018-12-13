@@ -4,7 +4,7 @@ import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, Style
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-class LibraryScreen extends Component {
+class AllBooksListScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -237,4 +237,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {})(LibraryScreen);
+export default connect(mapStateToProps, {})(AllBooksListScreen);

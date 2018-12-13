@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
 
 import LoginScreen from './screens/LoginScreen';
-import LibraryScreen from './screens/LibraryScreen';
+import AllBooksListScreen from './screens/Library/AllBooksListScreen';
 import SignUpScreen_1 from './screens/SignUpScreen_1';
 import SignUpScreen_2 from './screens/SignUpScreen_2';
 import ConfirmationScreen from './screens/ConfirmationScreen'
@@ -18,7 +18,7 @@ import BarCodeScannerScreen from './screens/BarCodeScanner'
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
-        library: { screen: LibraryScreen },
+        library: { screen: AllBooksListScreen },
         barCodeScanner: { screen: BarCodeScannerScreen },
         login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },  
