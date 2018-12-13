@@ -4,10 +4,10 @@ import {Keyboard, Text, View, TextInput, Alert, TouchableWithoutFeedback, Image,
 import { Button } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import { emailChanged, passwordChanged, loginUser } from '../actions/index';
+import { emailChanged, passwordChanged, loginUser } from '../../actions/index';
 
 import Amplify, { Auth } from 'aws-amplify';
-import awsConfig from '../sensitive_info/aws-exports';
+import awsConfig from '../../sensitive_info/aws-exports';
 
 Amplify.configure({ Auth: awsConfig });
 
@@ -216,7 +216,7 @@ class LoginScreen extends Component {
                         <View style={styles.logoImageView}>
                             <Image 
                                 style={styles.logoImage}
-                                source={require('../assets/bunksheet_logos/White_Background.png')}
+                                source={require('../../assets/bunksheet_logos/White_Background.png')}
                             />
                         </View>
                         <Text style={styles.logoText}>BunkSheet</Text>

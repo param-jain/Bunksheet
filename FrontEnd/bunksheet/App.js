@@ -6,12 +6,12 @@ import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
 
-import LoginScreen from './screens/LoginScreen';
+import LoginScreen from './screens/Authentication/LoginScreen';
 import AllBooksListScreen from './screens/Library/AllBooksListScreen';
-import SignUpScreen_1 from './screens/SignUpScreen_1';
-import SignUpScreen_2 from './screens/SignUpScreen_2';
-import ConfirmationScreen from './screens/ConfirmationScreen'
-import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import SignUpScreen_1 from './screens/Authentication/SignUpScreen_1';
+import SignUpScreen_2 from './screens/Authentication/SignUpScreen_2';
+import ConfirmationScreen from './screens/Authentication/ConfirmationScreen'
+import ForgotPasswordScreen from './screens/Authentication/ForgotPasswordScreen';
 import LibraryNotificationScreen from './screens/Library/LibraryNotificationScreen';
 import BarCodeScannerScreen from './screens/Library/BarCodeScanner'
 
