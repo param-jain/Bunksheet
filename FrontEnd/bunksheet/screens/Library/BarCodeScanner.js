@@ -47,7 +47,7 @@ componentDidMount() {
         <View style={styles.logoImageView}>
             <Image 
                 style={styles.logoImage}
-                source={require('../images/angry-orange-brown-md.png')}
+                source={require('../../images/angry-orange-brown-md.png')}
             />
         </View>
         <Text style={styles.permissionText}>Camera Permission Denied</Text>

@@ -14,7 +14,7 @@ class LibraryNotificationScreen extends Component {
 
                 <View style={styles.headerIconView}>
                     <TouchableOpacity style={styles.headerBackButtonView} onPress={this.backButtonNavigation.bind(this)}>
-                        <Image style={styles.backButtonIcon} source={require('../images/black_back.png')} />
+                        <Image style={styles.backButtonIcon} source={require('../../images/black_back.png')} />
                     </TouchableOpacity>
                 </View>
 

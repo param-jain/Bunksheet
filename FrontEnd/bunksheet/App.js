@@ -12,8 +12,8 @@ import SignUpScreen_1 from './screens/SignUpScreen_1';
 import SignUpScreen_2 from './screens/SignUpScreen_2';
 import ConfirmationScreen from './screens/ConfirmationScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
-import LibraryNotificationScreen from './screens/LibraryNotificationScreen';
-import BarCodeScannerScreen from './screens/BarCodeScanner'
+import LibraryNotificationScreen from './screens/Library/LibraryNotificationScreen';
+import BarCodeScannerScreen from './screens/Library/BarCodeScanner'
 
 export default class App extends React.Component {
   render() {
