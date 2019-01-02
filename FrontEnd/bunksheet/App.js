@@ -7,7 +7,6 @@ import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
 
 import LoginScreen from './Modules/Authentication/LoginScreen';
-import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 import SignUpScreen_1 from './Modules/Authentication/SignUpScreen_1';
 import SignUpScreen_2 from './Modules/Authentication/SignUpScreen_2';
 import ConfirmationScreen from './Modules/Authentication/ConfirmationScreen'
@@ -16,12 +15,12 @@ import LibraryNotificationScreen from './Modules/Library/LibraryNotificationScre
 import BarCodeScannerScreen from './Modules/Library/BarCodeScanner'
 import FreshArrivalsList from './Modules/Library/FreshArrivalsList';
 import { Icon } from 'react-native-elements';
+import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
-                login: { screen: LoginScreen },
-        forgot_password: { screen: ForgotPasswordScreen },
+        
         library: {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
@@ -30,6 +29,9 @@ export default class App extends React.Component {
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
        libraryNotifications: { screen: LibraryNotificationScreen},
+
+       login: { screen: LoginScreen },
+        forgot_password: { screen: ForgotPasswordScreen },
 
         sign_up: { 
           screen: createBottomTabNavigator({

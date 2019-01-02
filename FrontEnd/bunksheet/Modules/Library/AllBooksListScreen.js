@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, Text } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -133,8 +133,8 @@ class AllBooksListScreen extends Component {
 
 
   renderList = () => {
-      return (
-        <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0 }}>
+    return (
+        <View>
           <FlatList
             keyboardShouldPersistTaps='always'
             data={this.state.data}
@@ -143,7 +143,7 @@ class AllBooksListScreen extends Component {
               roundAvatar
               title={item.Title}
               subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
-              avatar={{ uri: item.Image }}
+              leftAvatar={{ source: { uri: item.Image } }}
               containerStyle={{ borderBottomWidth: 0 }}
               onPress={() => this.toBookDetail()}
               />
@@ -152,8 +152,8 @@ class AllBooksListScreen extends Component {
             ItemSeparatorComponent={this.renderSeparator}
             //ListHeaderComponent={this.renderHeader}
           />
-      </List>
-      );
+        </View>
+    );
   }
 
 toNotificationScreen() {
@@ -172,7 +172,7 @@ toBarCodeScannerScreen() {
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}
         leftContainerStyle={{margin: 10}}
-        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
+        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
         rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27, underlayColor:'#64b5f6' }}
         leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30, underlayColor:'#64b5f6' }}
       />
