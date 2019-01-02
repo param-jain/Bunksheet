@@ -96,6 +96,8 @@ const styles = StyleSheet.create({
   layerTop: {
     flex: 2,
     backgroundColor: opacity,
+    //borderBottomColor: '#ffffff',
+    //borderBottomWidth: 2,
   },
   layerCenter: {
     flex: 1,
@@ -106,6 +108,8 @@ const styles = StyleSheet.create({
   layerLeft: {
     flex: 1,
     backgroundColor: opacity,
+    //borderRightColor: '#ffffff',
+   // borderRightWidth: 2,
   },
   focused: {
     flex: 10
@@ -113,10 +117,14 @@ const styles = StyleSheet.create({
   layerRight: {
     flex: 1,
     backgroundColor: opacity,
+    //borderLeftColor: '#ffffff',
+   // borderLeftWidth: 2,
   },
   layerBottom: {
     flex: 2,
     backgroundColor: opacity,
+   //borderTopColor: '#ffffff',
+   // borderTopWidth: 2,
   },
   Ok: {
     backgroundColor: '#FFAB00',
@@ -139,11 +147,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: '30%',
     textAlign: 'center',
+    //width: '70%',
     color: 'white',
   },
   cancel: {
     fontSize: width * 0.05,
     textAlign: 'center',
+    //width: '70%',
     color: 'white',
     marginTop: '20%'
   },
