@@ -20,16 +20,17 @@ import { Icon } from 'react-native-elements';
 export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
-        library: {
-           screen: createBottomTabNavigator({
-             all_books_list: { screen: AllBooksListScreen },
-             freshArrivals: { screen: FreshArrivalsList },
-            })
-          },
-        barCodeScanner: { screen: BarCodeScannerScreen },
-        libraryNotifications: { screen: LibraryNotificationScreen},
-        login: { screen: LoginScreen },
+                login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
+        library: {
+          screen: createBottomTabNavigator({
+            all_books_list: { screen: AllBooksListScreen },
+            freshArrivals: { screen: FreshArrivalsList },
+           })
+         },
+       barCodeScanner: { screen: BarCodeScannerScreen },
+       libraryNotifications: { screen: LibraryNotificationScreen},
+
         sign_up: { 
           screen: createBottomTabNavigator({
             sign_up_1: { screen: SignUpScreen_1 },

@@ -338,6 +338,12 @@ export default class ForgotPasswordScreen extends Component {
                                 buttonStyle={styles.recoverButton}
                                 onPress={() => this.onRecoverPress()}
                                 title="Recover"
+                                ViewComponent={require('expo').LinearGradient}
+                                linearGradientProps={{
+                                    colors: ['#E65100', '#FF9800'],
+                                    start: [1, 0],
+                                    end: [0.2, 0],
+                                }}
                                 //disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
                         />
                         </View>
@@ -410,6 +416,8 @@ const styles = {
         borderRadius: 5,
         height: 45,
         marginTop: 10,
+        marginLeft: 15,
+        marginRight: 15,
     },
     logoImage: {
         marginTop: 7,

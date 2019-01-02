@@ -229,6 +229,12 @@ class LoginScreen extends Component {
                             onPress={() => this.onLoginPress()}
                             title="Login"
                             disabled={this.loginButtonDisabled(this.props.email, this.props.password)}
+                            ViewComponent={require('expo').LinearGradient}
+                            linearGradientProps={{
+                                colors: ['#FF6F00', '#FFA000'],
+                                start: [1, 0],
+                                end: [0.2, 0],
+                            }}
                         />
                         <TouchableOpacity 
                             style={{flexDirection:'row', justifyContent: 'space-around', marginTop: 10 }} 
@@ -237,10 +243,16 @@ class LoginScreen extends Component {
                             <Text style={{color: '#424242'}} >Forgotten Password?</Text>
                         </TouchableOpacity>
                         <View style={styles.rectangle} />
-                    <Button
+                        <Button
                             buttonStyle={styles.signUpButton}
                             onPress={() => this.onSignUpPress()}
                             title="Sign Up"
+                            ViewComponent={require('expo').LinearGradient}
+                            linearGradientProps={{
+                                colors: ['#FFA000', '#FFC110'],
+                                start: [1, 0],
+                                end: [0.2, 0],
+                            }}
                         />
                     </View>
                 </View>
@@ -296,11 +308,15 @@ const styles = {
         borderRadius: 5,
         height: 45,
         marginTop: 10,
+        marginLeft: 15,
+        marginRight: 15
     },
     signUpButton: {
         backgroundColor: '#FFAB00',
         borderRadius: 5,
         height: 45,
+        marginLeft: 15,
+        marginRight: 15,
     },
     rectangle: {
         width: 'auto',
