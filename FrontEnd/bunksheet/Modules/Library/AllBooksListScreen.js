@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, Text } from 'react-native';
+import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 class AllBooksListScreen extends Component {
 
@@ -26,7 +25,7 @@ class AllBooksListScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://collegebuddy.pythonanywhere.com/api/book/1000`;
+        const url = `https://collegebuddy.pythonanywhere.com/api/book/100`;
         this.setState({ loading: true });
     
         fetch(url)
@@ -172,7 +171,7 @@ toBarCodeScannerScreen() {
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}
         leftContainerStyle={{margin: 10}}
-        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
+        centerComponent={{ text: 'All Books', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
         rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27, underlayColor:'#64b5f6' }}
         leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30, underlayColor:'#64b5f6' }}
       />
@@ -184,10 +183,10 @@ toBarCodeScannerScreen() {
         if (this.state.loading) {
             return (
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Spinner visible={this.state.loading} />
+                <ActivityIndicator size="large" animating={this.state.loading} />
               </View>
             );
-          }
+        } 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>

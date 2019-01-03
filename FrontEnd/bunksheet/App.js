@@ -21,8 +21,6 @@ export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
 
-      login: { screen: LoginScreen },
-        
         library: {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
@@ -32,6 +30,7 @@ export default class App extends React.Component {
        barCodeScanner: { screen: BarCodeScannerScreen },
        libraryNotifications: { screen: LibraryNotificationScreen},
 
+        login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
 
         sign_up: { 
