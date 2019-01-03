@@ -5,7 +5,7 @@ class LibraryNotificationScreen extends Component {
 
     backButtonNavigation() {
         this.setState({ errorMessage: '' });
-        this.props.navigation.navigate('library');
+        this.props.navigation.navigate('all_books_list');
     }
 
     render() {

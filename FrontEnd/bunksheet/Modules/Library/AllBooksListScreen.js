@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity ,KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator, Modal, Text, ScrollView } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
 
 class AllBooksListScreen extends Component {
@@ -14,7 +14,9 @@ class AllBooksListScreen extends Component {
           searchBarText: '',
           searchBarTextTouched: false,
           data:[],
-          error: ''
+          error: '',
+          modalVisible:false,
+          bookSelected:[],
         }
 
         this.arrayHolder = [];
@@ -113,8 +115,14 @@ class AllBooksListScreen extends Component {
       );
     }
 
-    toBookDetail() {
-      //this.props.navigation.navigate('login');
+    bookDetailModal = (item) => {
+      this.setState({bookSelected: item}, () =>{
+        this.setModalVisible(true);
+      });
+    }
+
+    setModalVisible(visible) {
+      this.setState({modalVisible: visible});
     }
 
     renderSeparator = () => {
@@ -142,15 +150,42 @@ class AllBooksListScreen extends Component {
               roundAvatar
               title={item.Title}
               subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
-              leftAvatar={{ source: { uri: item.Image } }}
+              leftAvatar={{ source: { uri: "http://books.google.com/books/content?id=_ojXNuzgHRcC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE730gA8gykyn3eW-2UcqAait5rm7mkY0fxMIYsgNqe7rMLL1N1Lem_aEPK4CjW_o-gWHKcV2yQw6EtiyUhmZkNa2Mp4GgfRpnLNjq7lgHu_Nfwj1TaZZBkmqxR2coVrJ9BWmydUK&source=gbs_api" } }} //uri:item.image
               containerStyle={{ borderBottomWidth: 0 }}
-              onPress={() => this.toBookDetail()}
+              onPress={() => this.bookDetailModal(item)}
               />
             )}
             keyExtractor={item => item.ISBN}
             ItemSeparatorComponent={this.renderSeparator}
             //ListHeaderComponent={this.renderHeader}
           />
+
+          <Modal
+            animationType={'fade'}
+            transparent={true}
+            onRequestClose={() => this.setModalVisible(false)}
+            visible={this.state.modalVisible}>
+
+            <View style={styles.popupOverlay}>
+              <View style={styles.popup}>
+                <View style={styles.popupContent}>
+                  <ScrollView contentContainerStyle={styles.modalInfo}>
+                      <Image style={styles.image} source={{uri: this.state.bookSelected.Image}}/>
+                      <Text style={styles.name}>{this.state.bookSelected.Title}</Text> 
+                      <Text style={styles.author}>Author: {this.state.bookSelected.Author}</Text>
+                      <Text style={styles.publisher}>Publisher: {this.state.bookSelected.Publisher}</Text>
+                      <Text style={styles.about}>{this.state.bookSelected.desc}</Text>
+                  </ScrollView>
+                </View>
+                <View style={styles.popupButtons}>
+                  <TouchableOpacity onPress={() => {this.setModalVisible(false) }} style={styles.btnClose}>
+                    <Text style={styles.txtClose}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
         </View>
     );
   }
@@ -228,7 +263,90 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 15,
     margin: 5
+  },
+
+  //Modals Styles
+  popup: {
+    backgroundColor: 'white',
+    marginTop: 80,
+    marginHorizontal: 20,
+    borderRadius: 7,
+  },
+  popupOverlay: {
+    backgroundColor: "#00000057",
+    flex: 1,
+    marginTop: 30
+  },
+  popupContent: {
+    //alignItems: 'center',
+    margin: 5,
+    height:"80%",
+  },
+  popupHeader: {
+    marginBottom: 45
+  },
+  popupButtons: {
+    marginTop: 15,
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "#eee",
+    justifyContent:'center'
+  },
+  popupButton: {
+    flex: 1,
+    marginVertical: 16
+  },
+  btnClose:{
+    flex: 0.5,
+    backgroundColor:'#20b2aa',
+    padding:20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalInfo:{
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  image:{
+    width:100,
+    height:100,
+    borderRadius:50,
+    marginTop: 10
+  },
+  name:{
+    fontSize:20,
+    flex:1,
+    alignSelf:'center',
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:"#008080",
+    fontWeight:'bold',
+    marginTop: 10,
+  },
+  author:{
+    fontSize:16,
+    flex:1,
+    alignSelf:'center',
+    color:"#696969",
+    marginTop: 5
+  },
+  publisher:{
+    fontSize:16,
+    flex:1,
+    alignSelf:'center',
+    color:"#696969",
+  },
+  about:{
+    marginHorizontal:10
+  },
+  txtClose: {
+    alignContent: 'center',
+    justifyContent:'center',
+    color: '#FFFFFF',
+    fontSize: 16
   }
+
 });
 
 const mapStateToProps = (state) => {

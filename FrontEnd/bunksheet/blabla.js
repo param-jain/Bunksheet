@@ -1,8 +1,155 @@
 import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Image, ScrollView, Keyboard, ActivityIndicator, StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from 'react-native';
+import { Header, ListItem, Card } from 'react-native-elements';
+
+class BookDetailPage extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+          loading: false,
+          data:[],
+          error: ''
+        }
+
+        this.arrayHolder = [];
+    }
+
+    backButtonNavigation() {
+        this.setState({ errorMessage: '' });
+        this.props.navigation.navigate('all_books_list');
+    }
+
+    componentDidMount(){
+        this.makeRemoteRequest();
+    }
+
+    makeRemoteRequest = () => {
+        const url = `https://collegebuddy.pythonanywhere.com/api/FA`;
+        this.setState({ loading: true });
+
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+            this.setState({
+                //data: res.results,
+                data: res,
+                error: res.error || null,
+                loading: false,
+            });
+            this.arrayHolder = res;
+            //this.arrayHolder = res.results;
+            })
+            .catch(error => {
+            this.setState({ error, loading: false });
+            });
+    };
+
+    render() {
+        if (this.state.loading) {
+            return (
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator size="large" animating={this.state.loading} />
+              </View>
+            );
+        } 
+        return(
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
+                <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
+
+                        <View style={styles.headerIconView}>
+                            <TouchableOpacity style={styles.headerBackButtonView} onPress={this.backButtonNavigation.bind(this)}>
+                                <Image style={styles.backButtonIcon} source={require('../../images/black_back.png')} />
+                            </TouchableOpacity>
+                        </View>
+
+                        <Card title="AWESOME BOOK" containerStyle={{flex:}} >
+                            <View style={{ height: 200 }}>
+                                <Image 
+                                    style={{flex: 1, marginBottom: 10}} 
+                                    cacheEnabled={Platform.OS === 'android'}
+                                    source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+                                />
+                                <View style={styles.detailedWrapper}>
+                                    <Text style={styles.italics}>Publisher Name</Text>
+                                    <Text style={styles.italics}>Author Name</Text>
+                                </View>
+                                <ScrollView >
+                                    <Text>Discover the beautiful science of flowers! Through full-color photos and simple, easy-to-follow text, this nonfiction book introduces emergent readers to the basics of botany, including information on how flowers grow, along with their uses. All Pebble Plus books align with national and state standards and are designed to help new readers read independently, making them the perfect choice for every child.</Text>
+                                </ScrollView>
+                            </View>
+                        </Card>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        );
+    }
+}
+
+styles={
+    container: {
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: 'transparent'
+      },
+    sectionStyle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F5F5F5',
+      borderWidth: 1,
+      borderColor: '#F57C00',
+      height: 35,
+      borderRadius: 15,
+      margin: 5
+    },
+    cardImage: {
+        height: "65%",
+    },
+    headerIconView: {
+        flex: 0.15,
+        backgroundColor: 'transparent',
+        marginBottom: 10,
+        marginTop: 10,
+      },
+      headerBackButtonView: {
+        width: 35,
+        height: 35,
+        position: 'absolute',
+        top: 35,
+        left: 15,
+        marginBottom: 10
+      },
+      backButtonIcon: {
+        resizeMode: 'contain',
+        width: 35,
+        height: 25
+      },
+      detailedWrapper: {
+        marginTop: 5,
+        marginBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+        },
+        italics: {
+            fontStyle: 'italic'
+        },
+
+}
+
+export default BookDetailPage;
+
+
+
+----------
+
+
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import { View, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 class AllBooksListScreen extends Component {
 
@@ -15,7 +162,9 @@ class AllBooksListScreen extends Component {
           searchBarText: '',
           searchBarTextTouched: false,
           data:[],
-          error: ''
+          error: '',
+          modalVisible:false,
+          bookSelected:[],
         }
 
         this.arrayHolder = [];
@@ -26,7 +175,7 @@ class AllBooksListScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-        const url = `https://collegebuddy.pythonanywhere.com/api/book/1000`;
+        const url = `https://collegebuddy.pythonanywhere.com/api/book/100`;
         this.setState({ loading: true });
     
         fetch(url)
@@ -114,8 +263,10 @@ class AllBooksListScreen extends Component {
       );
     }
 
-    toBookDetail() {
-      //this.props.navigation.navigate('login');
+    bookDetailModal = (item) => {
+      this.setState({bookSelected: item}, () =>{
+        this.setModalVisible(true);
+      });
     }
 
     renderSeparator = () => {
@@ -133,8 +284,8 @@ class AllBooksListScreen extends Component {
 
 
   renderList = () => {
-      return (
-        <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0 }}>
+    return (
+        <View>
           <FlatList
             keyboardShouldPersistTaps='always'
             data={this.state.data}
@@ -143,17 +294,17 @@ class AllBooksListScreen extends Component {
               roundAvatar
               title={item.Title}
               subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
-              avatar={{ uri: item.Image }}
+              leftAvatar={{ source: { uri: "http://books.google.com/books/content?id=_ojXNuzgHRcC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE730gA8gykyn3eW-2UcqAait5rm7mkY0fxMIYsgNqe7rMLL1N1Lem_aEPK4CjW_o-gWHKcV2yQw6EtiyUhmZkNa2Mp4GgfRpnLNjq7lgHu_Nfwj1TaZZBkmqxR2coVrJ9BWmydUK&source=gbs_api" } }} //uri:item.image
               containerStyle={{ borderBottomWidth: 0 }}
-              onPress={() => this.toBookDetail()}
+              onPress={() => this.bookDetailModal(item)}
               />
             )}
             keyExtractor={item => item.ISBN}
             ItemSeparatorComponent={this.renderSeparator}
             //ListHeaderComponent={this.renderHeader}
           />
-      </List>
-      );
+        </View>
+    );
   }
 
 toNotificationScreen() {
@@ -172,7 +323,7 @@ toBarCodeScannerScreen() {
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}
         leftContainerStyle={{margin: 10}}
-        centerComponent={{ text: 'Library', style: { color: '#fff',fontSize: 22, paddingTop: 15, fontWeight: 'bold' } }}
+        centerComponent={{ text: 'All Books', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
         rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27, underlayColor:'#64b5f6' }}
         leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30, underlayColor:'#64b5f6' }}
       />
@@ -184,10 +335,10 @@ toBarCodeScannerScreen() {
         if (this.state.loading) {
             return (
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Spinner visible={this.state.loading} />
+                <ActivityIndicator size="large" animating={this.state.loading} />
               </View>
             );
-          }
+        } 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
@@ -238,24 +389,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {})(AllBooksListScreen);
-
-
-<List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0 }}>
-          <FlatList
-            keyboardShouldPersistTaps='always'
-            data={this.state.data}
-            renderItem={({ item }) => (
-              <ListItem
-              roundAvatar
-              title={item.Title}
-              subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
-              avatar={{ uri: item.Image }}
-              containerStyle={{ borderBottomWidth: 0 }}
-              onPress={() => this.toBookDetail()}
-              />
-            )}
-            keyExtractor={item => item.ISBN}
-            ItemSeparatorComponent={this.renderSeparator}
-            //ListHeaderComponent={this.renderHeader}
-          />
-      </List>
