@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity ,KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator, Modal, Text, ScrollView } from 'react-native';
 import { Header, List, ListItem, SearchBar, Icon } from 'react-native-elements';
+import { LinearGradient } from 'expo';
 
 class AllBooksListScreen extends Component {
 
@@ -155,7 +156,7 @@ class AllBooksListScreen extends Component {
               onPress={() => this.bookDetailModal(item)}
               />
             )}
-            keyExtractor={item => item.ISBN}
+            keyExtractor={item => item.id.toString()}
             ItemSeparatorComponent={this.renderSeparator}
             //ListHeaderComponent={this.renderHeader}
           />
@@ -174,13 +175,22 @@ class AllBooksListScreen extends Component {
                       <Text style={styles.name}>{this.state.bookSelected.Title}</Text> 
                       <Text style={styles.author}>Author: {this.state.bookSelected.Author}</Text>
                       <Text style={styles.publisher}>Publisher: {this.state.bookSelected.Publisher}</Text>
-                      <Text style={styles.about}>{this.state.bookSelected.desc}</Text>
+                      <Text style={styles.about}>"Discover the beautiful science of flowers! Through full-color photos and simple, easy-to-follow text, this nonfiction book introduces emergent readers to the basics of botany, including information on how flowers grow, along with their uses. All Pebble Plus books align with national and state standards and are designed to help new readers read independently, making them the perfect choice for every child."</Text>
+                      <View style={{flexDirection: "row"}}>
+                        <Text style={styles.pageCount}>Page Count: {this.state.bookSelected.pc}</Text>
+                        {this.state.bookSelected.AC > 0 ? <Text style={styles.available}>Available</Text>: <Text style={styles.notAvailable}>Not Available</Text> }
+                      </View>
                   </ScrollView>
                 </View>
                 <View style={styles.popupButtons}>
-                  <TouchableOpacity onPress={() => {this.setModalVisible(false) }} style={styles.btnClose}>
-                    <Text style={styles.txtClose}>Close</Text>
-                  </TouchableOpacity>
+                <LinearGradient
+                  colors={['#FF9800', '#FB8C00', '#EF6C00']}
+                  style={styles.btnClose}
+                  >
+                    <TouchableOpacity onPress={() => {this.setModalVisible(false) }}>
+                      <Text style={styles.txtClose}>Close</Text>
+                    </TouchableOpacity>
+                  </LinearGradient>
                 </View>
               </View>
             </View>
@@ -270,7 +280,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 80,
     marginHorizontal: 20,
-    borderRadius: 7,
+    borderRadius: 15,
   },
   popupOverlay: {
     backgroundColor: "#00000057",
@@ -288,8 +298,8 @@ const styles = StyleSheet.create({
   popupButtons: {
     marginTop: 15,
     flexDirection: 'row',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    //borderTopWidth: 1,
+    //borderBottomWidth: 1,
     borderColor: "#eee",
     justifyContent:'center'
   },
@@ -299,28 +309,29 @@ const styles = StyleSheet.create({
   },
   btnClose:{
     flex: 0.5,
-    backgroundColor:'#20b2aa',
+    backgroundColor:'#EF6C00',
     padding:20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10
   },
   modalInfo:{
     alignItems:'center',
     justifyContent:'center',
   },
   image:{
-    width:100,
-    height:100,
-    borderRadius:50,
+    width:120,
+    height:120,
+    borderRadius:40,
     marginTop: 10
   },
   name:{
-    fontSize:20,
+    fontSize:22,
     flex:1,
     alignSelf:'center',
     textAlign: 'center',
     justifyContent: 'center',
-    color:"#008080",
+    color:"#FF3D00",
     fontWeight:'bold',
     marginTop: 10,
   },
@@ -338,13 +349,35 @@ const styles = StyleSheet.create({
     color:"#696969",
   },
   about:{
-    marginHorizontal:10
+    marginHorizontal:10,
+    marginTop: 10
+  },
+  pageCount: {
+    marginTop:20,
+    marginLeft: 10,
+    flex: 1,
+    color: '#311B92'
+  },
+  notAvailable: {
+    marginTop:20,
+    marginRight: 20,
+    color: 'red',
+    flex: 1,
+    textAlign: 'right'
+  },
+  available: {
+    marginTop:20,
+    marginRight: 20,
+    color: 'green',
+    flex: 1,
+    textAlign: 'right'
   },
   txtClose: {
     alignContent: 'center',
     justifyContent:'center',
     color: '#FFFFFF',
-    fontSize: 16
+    fontSize: 18,
+    padding: 0
   }
 
 });

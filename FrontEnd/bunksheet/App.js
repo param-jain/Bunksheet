@@ -16,7 +16,6 @@ import BarCodeScannerScreen from './Modules/Library/BarCodeScanner'
 import FreshArrivalsList from './Modules/Library/FreshArrivalsList';
 import { Icon } from 'react-native-elements';
 import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
-import BookDetailPage from './Modules/Library/BookDetailPage';
 
 export default class App extends React.Component {
   render() {
@@ -28,7 +27,6 @@ export default class App extends React.Component {
             freshArrivals: { screen: FreshArrivalsList },
            })
          },
-       bookDetailPage: { screen: BookDetailPage },
        barCodeScanner: { screen: BarCodeScannerScreen },
        libraryNotifications: { screen: LibraryNotificationScreen},
 
