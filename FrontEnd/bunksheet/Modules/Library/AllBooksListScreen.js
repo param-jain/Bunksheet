@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     padding:20,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10
+    borderRadius: 30
   },
   modalInfo:{
     alignItems:'center',
