@@ -394,3 +394,117 @@ export default connect(mapStateToProps, {})(AllBooksListScreen);
 
 --------------------
 
+
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+
+
+class LibraryNotificationScreen extends Component {
+
+  backButtonNavigation() {
+      this.setState({ errorMessage: '' });
+      this.props.navigation.navigate('all_books_list');
+  }
+
+  render() {
+      return(
+          <View style={styles.container}>
+
+              <View style={styles.headerIconView}>
+                  <TouchableOpacity style={styles.headerBackButtonView} onPress={this.backButtonNavigation.bind(this)}>
+                      <Image style={styles.backButtonIcon} source={require('../../images/black_back.png')} />
+                  </TouchableOpacity>
+              </View>
+
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+              <Text>NOTIFICATIONS</Text>
+          </View>
+      );
+  }
+}
+
+styles={
+  container: {
+      flexDirection: 'column',
+      flex: 1,
+      backgroundColor: 'transparent'
+    },
+  headerIconView: {
+      flex: 0.15,
+      backgroundColor: 'transparent',
+      marginBottom: 20,
+    },
+    headerBackButtonView: {
+      width: 35,
+      height: 35,
+      position: 'absolute',
+      top: 35,
+      left: 15,
+      marginBottom: 10
+    },
+    backButtonIcon: {
+      resizeMode: 'contain',
+      width: 35,
+      height: 25
+    },
+}
+
+export default LibraryNotificationScreen;
+
+
+
+
+
+=============
+
+
+
+import { Permissions, Notifications } from 'expo';
+import { AsyncStorage } from 'react-native';
+import axios from 'axios';
+
+const PUSH_ENDPOINT = "http://rallycoding.herokuapp.com/api/tokens"
+
+export default async () => {
+  let previousToken = await AsyncStorage.getItem('pushtoken');
+  console.log("blabla"+previousToken);
+  
+  if (previousToken) {
+    return;
+  } else {
+    let { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+
+    if (status !== 'granted') {
+      return;
+    }
+
+    let token = await Notifications.getExpoPushTokenAsync();
+    await axios.post(PUSH_ENDPOINT, { token: { token } });
+    AsyncStorage.setItem('pushtoken', token);
+    console.log("token"+token);
+  }
+};
