@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Alert, Modal, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import reducers from './reducers';
-import { Notifications, LinearGradient } from 'expo';
+import { Notifications } from 'expo';
 
 import LoginScreen from './Modules/Authentication/LoginScreen';
 import SignUpScreen_1 from './Modules/Authentication/SignUpScreen_1';
@@ -17,8 +17,6 @@ import BarCodeScannerScreen from './Modules/Library/BarCodeScanner'
 import FreshArrivalsList from './Modules/Library/FreshArrivalsList';
 import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 
-import { withNavigation } from 'react-navigation';
-
 import registerForNotifications from './Modules/Services/push_notifications_service'
 
 export default class App extends React.Component {
@@ -29,7 +27,7 @@ export default class App extends React.Component {
       const text = notification.body;
 
         Alert.alert(
-          '',
+          'New Notice',
           text,
           [{ text: 'Ok.' }]
         );
