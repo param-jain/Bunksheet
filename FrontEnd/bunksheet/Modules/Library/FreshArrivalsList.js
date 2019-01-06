@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Modal, ScrollView, Image, Keyboard, ActivityIndicator, StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, FlatList } from 'react-native';
-import { Header, ListItem } from 'react-native-elements';
+import { Header, ListItem, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo';
 
 class FreshArrivalsList extends Component {
+
+    static navigationOptions = {
+      title: 'Fresh Arrivals',
+      tabBarIcon: ({ tintColor }) => {
+          return <Icon name="new" type="entypo" size={25} color={tintColor} />;
+      }
+  }
 
     constructor(props) {
         super(props);
@@ -87,7 +94,7 @@ class FreshArrivalsList extends Component {
 
     renderList = () => {
         return (
-            <View>
+            <ScrollView>
                 <FlatList
                     keyboardShouldPersistTaps='always'
                     data={this.state.data}
@@ -141,7 +148,7 @@ class FreshArrivalsList extends Component {
                     </View>
                 </Modal>
 
-            </View>
+            </ScrollView>
         );
     }
 

@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import { View, TouchableOpacity ,KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator, Modal, Text, ScrollView } from 'react-native';
 import { Header, ListItem, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo';
+import IconBadge from 'react-native-icon-badge';
 
 class AllBooksListScreen extends Component {
+
+  static navigationOptions = {
+    title: 'All Books',
+    tabBarIcon: ({ tintColor }) => {
+        return <Icon name="book" type="font-awesome" size={25} color={tintColor} />;
+    }
+}
 
     constructor(props) {
         super(props);
@@ -18,6 +26,7 @@ class AllBooksListScreen extends Component {
           error: '',
           modalVisible:false,
           bookSelected:[],
+          BadgeCount: 2
         }
 
         this.arrayHolder = [];
@@ -142,7 +151,7 @@ class AllBooksListScreen extends Component {
 
   renderList = () => {
     return (
-        <View>
+        <ScrollView>
           <FlatList
             keyboardShouldPersistTaps='always'
             data={this.state.data}
@@ -196,7 +205,7 @@ class AllBooksListScreen extends Component {
             </View>
           </Modal>
 
-        </View>
+        </ScrollView>
     );
   }
 
@@ -208,6 +217,33 @@ toBarCodeScannerScreen() {
   this.props.navigation.navigate('barCodeScanner');
 }
 
+renderRightComponent = () => {
+  return (
+    <IconBadge
+    MainElement={
+      <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toBarCodeScannerScreen()} size={30} underlayColor="#64b5f6"/>
+    }
+    BadgeElement={
+      <Text style={{color:'#FFFFFF'}}>{this.state.BadgeCount}</Text>
+    }
+    IconBadgeStyle={
+      {
+        position:'absolute',
+        top:-5,
+        right:-5,
+        width:20,
+        height:20,
+        borderRadius:15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FF0000'
+      }
+    }
+    Hidden={this.state.BadgeCount==0}
+    />
+   );
+}
+
   renderHeader = () => {
     return(
       <Header
@@ -216,8 +252,8 @@ toBarCodeScannerScreen() {
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}
         leftContainerStyle={{margin: 10}}
-        centerComponent={{ text: 'All Books', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
-        rightComponent={{ icon: 'bullhorn', type: 'font-awesome', color: '#fff', onPress: () => this.toNotificationScreen(), size: 27, underlayColor:'#64b5f6' }}
+        centerComponent={{ text: 'BunkSheet', style: { color: '#fff',fontSize: 24, fontWeight: 'bold' } }}
+        rightComponent={this.renderRightComponent()}
         leftComponent={{ icon: 'barcode', type: 'font-awesome', color: '#fff', onPress: () => this.toBarCodeScannerScreen(), size: 30, underlayColor:'#64b5f6' }}
       />
     );
@@ -310,7 +346,7 @@ const styles = StyleSheet.create({
   btnClose:{
     flex: 0.5,
     backgroundColor:'#EF6C00',
-    padding:20,
+    padding:10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30
