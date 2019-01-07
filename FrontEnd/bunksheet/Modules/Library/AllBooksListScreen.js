@@ -159,6 +159,7 @@ class AllBooksListScreen extends Component {
               <ListItem
               roundAvatar
               title={item.Title}
+              titleStyle = {{fontWeight: "bold"}}
               subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
               leftAvatar={{ source: { uri: "http://books.google.com/books/content?id=_ojXNuzgHRcC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE730gA8gykyn3eW-2UcqAait5rm7mkY0fxMIYsgNqe7rMLL1N1Lem_aEPK4CjW_o-gWHKcV2yQw6EtiyUhmZkNa2Mp4GgfRpnLNjq7lgHu_Nfwj1TaZZBkmqxR2coVrJ9BWmydUK&source=gbs_api" } }} //uri:item.image
               containerStyle={{ borderBottomWidth: 0 }}
@@ -221,7 +222,7 @@ renderRightComponent = () => {
   return (
     <IconBadge
     MainElement={
-      <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toBarCodeScannerScreen()} size={30} underlayColor="#64b5f6"/>
+      <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toNotificationScreen()} size={30} underlayColor="#64b5f6"/>
     }
     BadgeElement={
       <Text style={{color:'#FFFFFF'}}>{this.state.BadgeCount}</Text>

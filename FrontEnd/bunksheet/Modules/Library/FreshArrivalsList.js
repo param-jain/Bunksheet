@@ -102,6 +102,7 @@ class FreshArrivalsList extends Component {
                     <ListItem
                     roundAvatar
                     title={item.Title}
+                    titleStyle = {{fontWeight: "bold"}}
                     subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
                     leftAvatar={{ source: { uri: item.Image } }}
                     containerStyle={{ borderBottomWidth: 0 }}

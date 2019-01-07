@@ -508,3 +508,38 @@ export default async () => {
     console.log("token"+token);
   }
 };
+
+
+
+=========
+
+
+<Modal
+                animationType={'fade'}
+                transparent={true}
+                onRequestClose={() => this.setModalVisible(false)}
+                visible={this.state.modalVisible}>
+
+                    <View style={styles.popupOverlay}>
+                    <View style={styles.popup}>
+                        <View style={styles.popupContent}>
+                        <ScrollView contentContainerStyle={styles.modalInfo}>
+                            
+                            <Text style={styles.name}>{this.state.noticeSelected.title}</Text> 
+                            <Text style={styles.about}>{this.state.noticeSelected.body}</Text>
+                        
+                        </ScrollView>
+                        </View>
+                        <View style={styles.popupButtons}>
+                        <LinearGradient
+                        colors={['#FF9800', '#FB8C00', '#EF6C00']}
+                        style={styles.btnClose}
+                        >
+                            <TouchableOpacity onPress={() => {this.setModalVisible(false) }}>
+                            <Text style={styles.txtClose}>Close</Text>
+                            </TouchableOpacity>
+                        </LinearGradient>
+                        </View>
+                    </View>
+                    </View>
+                </Modal>

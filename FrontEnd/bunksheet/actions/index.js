@@ -10,7 +10,8 @@ import {
     SIGNUP_REG_ID_CHANGED,
     SIGNUP_ATTEMPTED,
     SIGNUP_OTP_CHANGED,
-    LIBRARY_SEARCHTEXT_CHANGED
+    LIBRARY_SEARCHTEXT_CHANGED,
+    LIBRARY_NOTICE_COUNT
 } from './types';
 
 
@@ -82,6 +83,14 @@ export const signupCreateAccount = ({ email, password, fName, lName, regID }) =>
 export const signupOTPChanged = (text) => {
     return {
         type: SIGNUP_OTP_CHANGED,
+        payload: text
+    };
+};
+
+
+export const libraryNoticeCount = (text) => {
+    return {
+        type: LIBRARY_NOTICE_COUNT,
         payload: text
     };
 };
