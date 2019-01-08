@@ -102,6 +102,8 @@ renderList = () => {
               title={item.title}
               titleStyle = {{fontWeight: "bold"}}
               containerStyle={{ borderBottomWidth: 0 }}
+              chevronColor="white"
+              chevron
               onPress={() => this.noticeDetailModal(item)}
               />
               )}

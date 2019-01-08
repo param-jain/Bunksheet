@@ -106,6 +106,8 @@ class FreshArrivalsList extends Component {
                     subtitle={`A: ${item.Author}  P: ${item.Publisher}`}
                     leftAvatar={{ source: { uri: item.Image } }}
                     containerStyle={{ borderBottomWidth: 0 }}
+                    chevronColor="white"
+                    chevron
                     onPress={() => this.bookDetailModal(item)}
                     />
                     )}
