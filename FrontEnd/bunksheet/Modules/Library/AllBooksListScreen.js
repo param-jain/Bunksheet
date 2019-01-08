@@ -215,7 +215,7 @@ toNotificationScreen() {
 }
 
 toBarCodeScannerScreen() {
-  this.props.navigation.navigate('barCodeScanner');
+  this.props.navigation.navigate('issuance');
 }
 
 renderRightComponent = () => {
@@ -248,7 +248,7 @@ renderRightComponent = () => {
   renderHeader = () => {
     return(
       <Header
-        backgroundColor="#FF9800"
+        backgroundColor="#FF6D00"
         outerContainerStyles={{borderBottomWidth: 0.5, borderColor: '#000000'}}
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}

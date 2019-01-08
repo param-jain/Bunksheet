@@ -18,6 +18,7 @@ import FreshArrivalsList from './Modules/Library/FreshArrivalsList';
 import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 
 import registerForNotifications from './Modules/Services/push_notifications_service'
+import Issuance from './Modules/Library/IssuancePage';
 
 export default class App extends React.Component {
 
@@ -44,6 +45,7 @@ export default class App extends React.Component {
            })
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
+       issuance: { screen: Issuance },
        libraryNotifications: { screen: LibraryNotificationScreen},
 
         login: { screen: LoginScreen },

@@ -56,7 +56,7 @@ makeRemoteRequest = () => {
   renderHeader = () => {
     return(
         <Header
-        backgroundColor="#FF6F00"
+        backgroundColor="#FFA000"
         outerContainerStyles={{borderBottomWidth: 0.5, borderColor: '#000000'}}
         centerContainerStyle={{paddingTop: 10}}
         rightContainerStyle={{paddingTop: 10}}
