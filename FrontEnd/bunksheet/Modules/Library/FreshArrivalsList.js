@@ -235,7 +235,7 @@ styles={
   btnClose:{
     flex: 0.5,
     backgroundColor:'#EF6C00',
-    padding:20,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30

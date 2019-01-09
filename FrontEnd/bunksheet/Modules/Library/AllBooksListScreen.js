@@ -5,6 +5,8 @@ import { Header, ListItem, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo';
 import IconBadge from 'react-native-icon-badge';
 
+const bookLoading = require('../../Animations/downloading_book.json');
+
 class AllBooksListScreen extends Component {
 
   static navigationOptions = {
@@ -26,7 +28,7 @@ class AllBooksListScreen extends Component {
           error: '',
           modalVisible:false,
           bookSelected:[],
-          BadgeCount: 2
+          BadgeCount: 2,
         }
 
         this.arrayHolder = [];
