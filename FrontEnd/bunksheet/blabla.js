@@ -11,7 +11,7 @@ export default class TEST extends React.Component {
   };
 
   componentWillMount() {
-    //this._playAnimation();
+    this._playAnimation();
   }
 
   render() {

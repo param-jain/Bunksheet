@@ -43,7 +43,6 @@ class AllBooksListScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-
         const url = `https://collegebuddy.pythonanywhere.com/api/book/100`;
         this.setState({ loading: true });
     
@@ -270,10 +269,8 @@ renderRightComponent = () => {
   }
     render() {
         if (this.state.loading) {
-          this._playAnimation;
             return (
-              <TouchableWithoutFeedback onPress={() => this._playAnimation()}>
-                  <View style={styles.animationContainer}>
+              <View style={styles.animationContainer}>
                 {this.state.animation &&
                   <Lottie
                     ref={animation => {
@@ -281,16 +278,15 @@ renderRightComponent = () => {
                     }}
                     style={{
                       width: 400,
-                      height: Dimensions.get('window').height,
+                      height: 2*Dimensions.get('window').height/3,
                       backgroundColor: '#FA9800',
                     }}
                     source={this.state.animation}
                     speed={1.5}
                   />}
-                </View>
-              </TouchableWithoutFeedback>
+              </View>
             );
-          }
+        } 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
@@ -311,20 +307,20 @@ renderRightComponent = () => {
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
         );
-      } 
+    }
 
-        _playAnimation = () => {
-          if (!this.state.animation) {
-            this.setState({
-              animation: bookLoading
-            }, this._playAnimation);
-          } else {
-            this.animation.reset();
-            this.animation.play();
-          }
-      };
-  }
+    _playAnimation = () => {
+      if (!this.state.animation) {
+        this.setState({
+          animation: bookLoading
+        }, this._playAnimation);
+      } else {
+        this.animation.reset();
+        this.animation.play();
+      }
+    };
 
+}
 
 const styles = StyleSheet.create({
   container: {
