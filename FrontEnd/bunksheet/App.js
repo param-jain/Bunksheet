@@ -44,13 +44,13 @@ export default class App extends React.Component {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
             freshArrivals: { screen: FreshArrivalsList },
-            test: { screen: TEST },
-            returnSuccessToken: { screen: ReturnSuccessToken },
+            //test: { screen: TEST },
            })
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
        issuance: { screen: Issuance },
        libraryNotifications: { screen: LibraryNotificationScreen},
+       returnSuccessToken: { screen: ReturnSuccessToken },
        
 
         login: { screen: LoginScreen },

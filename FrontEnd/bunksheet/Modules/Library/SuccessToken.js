@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Dimensions } from 'react-native';
+import { Text, StyleSheet, View, Dimensions, Image } from 'react-native';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
@@ -33,15 +33,46 @@ export default class ReturnSuccessToken extends React.Component {
             </View>
             <View style={styles.containerView}>
                     <View style={styles.successTextView}>
-                        <Text style={styles.successText}>RETURN SUCCESS</Text>
+                        <Text style={styles.successText}>RETURN SUCCESS!!!</Text>
                     </View>
                     <View style={styles.bodyView}>
                         <View style={{flexDirection: 'row'}}>
-                            <Text style={styles.bodyBlue}>Book Title: </Text>
+                            <Text style={styles.bodyBlue}>Book Title                 :   </Text>
                             <Text style={styles.body}>The Lean Startup</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyBlue}>Author/s                    :   </Text>
+                            <Text style={styles.body}>Eric Ries</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyBlue}>Due Date                   :  </Text>
+                            <Text style={styles.body}>January 8th, 2019</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyBlue}>Return Date              :  </Text>
+                            <Text style={styles.body}>January 10th, 2019</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyBlue}>Accession Number  :   </Text>
+                            <Text style={styles.body}>9780670921607</Text>
+                        </View>
+                    </View>
+                    <View style={[styles.bodyView, {borderBottomWidth: 0}]}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyOrange}>Student's Name       :   </Text>
+                            <Text style={styles.body}>Param Jhade</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyOrange}>Registeration ID       :   </Text>
+                            <Text style={styles.body}>E2K16102832</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.bodyOrange}>Contact Number      :  </Text>
+                            <Text style={styles.body}>+91 8668462386</Text>
                         </View>
                     </View>
             </View>
+            <Text style={{fontSize: 12, alignSelf: 'center', color:'#9e9e9e'}}>BunkSheet</Text>
         </View>
     );
   }
@@ -85,17 +116,32 @@ const styles = StyleSheet.create({
   },
   bodyView: {
       margin: 10,
+      marginBottom: 0,
       justifyContent: 'center',
       alignContent: 'center',
+      borderBottomWidth: 1,
+      borderBottomColor: '#eee',
+      padding: 10
   },
   bodyBlue: {
-     fontSize: 18,
+     fontSize: 16,
      alignSelf: 'center',
      color: '#2196F3'
   },
+  bodyOrange: {
+    fontSize: 16,
+    alignSelf: 'center',
+    color: '#03A9F4'
+ },
   body: {
-    fontSize: 18,
+    fontSize: 16,
     alignSelf: 'center',
     color: '#424242'
- }
+ },
+ image:{
+    width:120,
+    height:120,
+    borderRadius:40,
+    marginTop: 10
+  },
 });
