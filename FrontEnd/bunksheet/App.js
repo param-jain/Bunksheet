@@ -20,6 +20,7 @@ import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 import registerForNotifications from './Modules/Services/push_notifications_service'
 import Issuance from './Modules/Library/IssuancePage';
 import TEST from './blabla';
+import ReturnSuccessToken from './Modules/Library/SuccessToken';
 
 export default class App extends React.Component {
 
@@ -43,12 +44,14 @@ export default class App extends React.Component {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
             freshArrivals: { screen: FreshArrivalsList },
-            test: { screen: TEST }
+            test: { screen: TEST },
+            returnSuccessToken: { screen: ReturnSuccessToken },
            })
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
        issuance: { screen: Issuance },
        libraryNotifications: { screen: LibraryNotificationScreen},
+       
 
         login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },

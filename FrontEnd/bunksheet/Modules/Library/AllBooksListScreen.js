@@ -43,7 +43,7 @@ class AllBooksListScreen extends Component {
     }
 
     makeRemoteRequest = () => {
-
+        this._playAnimation();
         const url = `https://collegebuddy.pythonanywhere.com/api/book/100`;
         this.setState({ loading: true });
     

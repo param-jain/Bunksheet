@@ -11,10 +11,16 @@ import {
     TouchableWithoutFeedback, 
     Keyboard, 
     FlatList,
+    Dimensions,
     Modal, Image, LinearGradient,
     Alert
 } from 'react-native';
 import { Header, Icon, ListItem } from 'react-native-elements';
+
+import { DangerZone } from 'expo';
+const { Lottie } = DangerZone;
+
+const bookLoading = require('../../Animations/loading_animation.json');
 
 class Issuance extends Component {
 
@@ -27,16 +33,19 @@ class Issuance extends Component {
             error: '',
             modalVisible:false,
             bookSelected: [],
+            animation: null,
         }
 
         this.arrayHolder = [];
     }
 
     componentDidMount(){
+        this._playAnimation();
         this.makeRemoteRequest();
     }
 
     makeRemoteRequest = () => {
+        this._playAnimation();
         const url = `https://collegebuddy.pythonanywhere.com/api/FA`;
         this.setState({ loading: true });
 
@@ -118,6 +127,11 @@ class Issuance extends Component {
         });
       }
 
+      alertConfirmationYES = () => {
+          this.setModalVisible(false);
+          this.props.navigation.navigate('returnSuccessToken');
+      }
+
       confirmationAlert = () => {
         //this.setState({bookSelected: item});
 
@@ -126,7 +140,7 @@ class Issuance extends Component {
             'Do you really want to return this book?',
             [
               {text: 'NO', onPress: () => this.setModalVisible(true), style: 'cancel'},
-              {text: 'YES', onPress: () => this.setModalVisible(false)},
+              {text: 'YES', onPress: () => this.alertConfirmationYES()},
             ],
             { cancelable: false }
           )
@@ -196,12 +210,27 @@ class Issuance extends Component {
     render() {
 
         if (this.state.loading) {
-            return (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <ActivityIndicator size="large" animating={this.state.loading} />
-              </View>
-            );
-        }
+            this._playAnimation;
+              return (
+                <TouchableWithoutFeedback onPress={() => this._playAnimation()}>
+                    <View style={styles.animationContainer}>
+                  {this.state.animation &&
+                    <Lottie
+                      ref={animation => {
+                        this.animation = animation;
+                      }}
+                      style={{
+                        width: 400,
+                        height: Dimensions.get('window').height,
+                        backgroundColor: '#FA9800',
+                      }}
+                      source={this.state.animation}
+                      speed={1.5}
+                    />}
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            }
 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -222,6 +251,17 @@ class Issuance extends Component {
             </KeyboardAvoidingView>
         );
     }
+
+    _playAnimation = () => {
+        if (!this.state.animation) {
+          this.setState({
+            animation: bookLoading
+          }, this._playAnimation);
+        } else {
+          this.animation.reset();
+          this.animation.play();
+        }
+    };
 }
 
 const styles = StyleSheet.create({

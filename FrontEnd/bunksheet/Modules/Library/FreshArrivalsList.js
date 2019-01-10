@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Modal, ScrollView, Image, Keyboard, ActivityIndicator, StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity, Modal, ScrollView, Image, Keyboard, ActivityIndicator, StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, FlatList } from 'react-native';
 import { Header, ListItem, Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo';
+import { DangerZone } from 'expo';
+const { Lottie } = DangerZone;
+
+const bookLoading = require('../../Animations/downloading_book.json');
+
 
 class FreshArrivalsList extends Component {
 
@@ -21,16 +26,19 @@ class FreshArrivalsList extends Component {
           error: '',
           modalVisible:false,
           bookSelected:[],
+          animation: null,
         }
 
         this.arrayHolder = [];
     }
 
     componentDidMount(){
+        this._playAnimation();
         this.makeRemoteRequest();
     }
 
     makeRemoteRequest = () => {
+        this._playAnimation();
         const url = `https://collegebuddy.pythonanywhere.com/api/FA`;
         this.setState({ loading: true });
 
@@ -160,13 +168,28 @@ class FreshArrivalsList extends Component {
       }
 
     render() {
-        if (this.state.loading) {
-            return (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <ActivityIndicator size="large" animating={this.state.loading} />
+      if (this.state.loading) {
+        this._playAnimation;
+          return (
+            <TouchableWithoutFeedback onPress={() => this._playAnimation()}>
+                <View style={styles.animationContainer}>
+              {this.state.animation &&
+                <Lottie
+                  ref={animation => {
+                    this.animation = animation;
+                  }}
+                  style={{
+                    width: 400,
+                    height: Dimensions.get('window').height,
+                    backgroundColor: '#FA9800',
+                  }}
+                  source={this.state.animation}
+                  speed={1.5}
+                />}
               </View>
-            );
-        } 
+            </TouchableWithoutFeedback>
+          );
+        }
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <StatusBar barStyle = "dark-content" hidden = {false} translucent = {true}/>
@@ -181,6 +204,18 @@ class FreshArrivalsList extends Component {
             </KeyboardAvoidingView>
         );
     }
+
+    _playAnimation = () => {
+      if (!this.state.animation) {
+        this.setState({
+          animation: bookLoading
+        }, this._playAnimation);
+      } else {
+        this.animation.reset();
+        this.animation.play();
+      }
+  };
+
 }
 
 styles={
