@@ -20,7 +20,13 @@ import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 import registerForNotifications from './Modules/Services/push_notifications_service'
 import Issuance from './Modules/Library/IssuancePage';
 import TEST from './blabla';
-import ReturnSuccessToken from './Modules/Library/SuccessToken';
+import ReturnSuccessToken from './Modules/Library/ReturnSuccessToken';
+import ReturnFailureToken from './Modules/Library/ReturnFailureToken';
+import ReturnPendingToken from './Modules/Library/ReturnApprovalPending';
+import IssueSuccessToken from './Modules/Library/IssueSuccessToken';
+import IssueFailureToken from './Modules/Library/IssueFailureToken';
+import IssuePendingToken from './Modules/Library/IssuePendingToken';
+
 
 export default class App extends React.Component {
 
@@ -44,13 +50,19 @@ export default class App extends React.Component {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
             freshArrivals: { screen: FreshArrivalsList },
-            //test: { screen: TEST },
+            returnPendingToken: { screen: ReturnPendingToken },
+            issuePendingToken: { screen: IssuePendingToken },
            })
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
        issuance: { screen: Issuance },
        libraryNotifications: { screen: LibraryNotificationScreen},
        returnSuccessToken: { screen: ReturnSuccessToken },
+       returnFailureToken: { screen: ReturnFailureToken },
+       returnPendingToken: { screen: ReturnPendingToken },
+       issueSuccessToken: { screen: IssueSuccessToken },
+       issueFailureToken: { screen: IssueFailureToken },
+       issuePendingToken: { screen: IssuePendingToken },
        
 
         login: { screen: LoginScreen },

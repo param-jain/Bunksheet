@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image, Alert, ActivityIndicator } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Button } from 'react-native-elements';
 //import Spinner from 'react-native-loading-spinner-overlay';
@@ -28,6 +28,26 @@ componentDidMount() {
     this.getCameraPermissions();
     //this.props.navigation.navigate('library');
   }
+
+  alertConfirmation = () => {
+    Alert.alert(
+      'Confirm Issue',
+      'Do you really want to issue this book?',
+      [
+        {text: 'NO', onPress: () => this.alertConfirmationNO(), style: 'cancel'},
+        {text: 'YES', onPress: () => this.alertConfirmationYES()},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  alertConfirmationYES = () => {
+    this.props.navigation.navigate('issueSuccessToken');
+  }
+
+alertConfirmationNO = () => {
+  this.props.navigation.navigate('issueFailureToken');
+}
 
   render() {
 
@@ -62,7 +82,7 @@ componentDidMount() {
     return (
       <View style={{ flex: 1 }}>
         <BarCodeScanner
-          onBarCodeRead={(scan) => alert(scan.data)}
+          onBarCodeRead={() => this.alertConfirmation()}
           style={[StyleSheet.absoluteFill, styles.container]}
         >
           <View style={styles.layerTop}>

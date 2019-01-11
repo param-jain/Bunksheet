@@ -132,6 +132,11 @@ class Issuance extends Component {
           this.props.navigation.navigate('returnSuccessToken');
       }
 
+      alertConfirmationNO = () => {
+        this.setModalVisible(false);
+        this.props.navigation.navigate('returnFailureToken');
+    }
+
       confirmationAlert = () => {
         //this.setState({bookSelected: item});
 
@@ -139,7 +144,7 @@ class Issuance extends Component {
             'Confirm Return',
             'Do you really want to return this book?',
             [
-              {text: 'NO', onPress: () => this.setModalVisible(true), style: 'cancel'},
+              {text: 'NO', onPress: () => this.alertConfirmationNO(), style: 'cancel'},
               {text: 'YES', onPress: () => this.alertConfirmationYES()},
             ],
             { cancelable: false }

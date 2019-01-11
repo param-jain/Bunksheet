@@ -197,7 +197,7 @@ class AllBooksListScreen extends Component {
                       <Text style={styles.about}>"Discover the beautiful science of flowers! Through full-color photos and simple, easy-to-follow text, this nonfiction book introduces emergent readers to the basics of botany, including information on how flowers grow, along with their uses. All Pebble Plus books align with national and state standards and are designed to help new readers read independently, making them the perfect choice for every child."</Text>
                       <View style={{flexDirection: "row"}}>
                         <Text style={styles.pageCount}>Page Count: {this.state.bookSelected.pc}</Text>
-                        {this.state.bookSelected.AC > 0 ? <Text style={styles.available}>Available</Text>: <Text style={styles.notAvailable}>Not Available</Text> }
+                        {this.state.bookSelected.AC > 0 ? <Text style={styles.available}>Can be Issued</Text>: <Text style={styles.notAvailable}>Already Issued</Text> }
                       </View>
                   </ScrollView>
                 </View>
