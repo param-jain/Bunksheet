@@ -30,7 +30,7 @@ class AllBooksListScreen extends Component {
           error: '',
           modalVisible:false,
           bookSelected:[],
-          BadgeCount: 2,
+          BadgeCount: 3,
           animation: null,
         }
 
