@@ -46,12 +46,14 @@ export default class App extends React.Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
 
+      login: { screen: LoginScreen },
+
         library: {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
             freshArrivals: { screen: FreshArrivalsList },
-            returnPendingToken: { screen: ReturnPendingToken },
-            issuePendingToken: { screen: IssuePendingToken },
+            //returnPendingToken: { screen: ReturnPendingToken },
+            //issuePendingToken: { screen: IssuePendingToken },
            })
          },
        barCodeScanner: { screen: BarCodeScannerScreen },
@@ -63,9 +65,7 @@ export default class App extends React.Component {
        issueSuccessToken: { screen: IssueSuccessToken },
        issueFailureToken: { screen: IssueFailureToken },
        issuePendingToken: { screen: IssuePendingToken },
-       
 
-        login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
 
         sign_up: { 

@@ -72,6 +72,9 @@ export default class ReturnPendingToken extends React.Component {
                         </View>
                     </View>
             </View>
+            <TouchableOpacity onPress = {() => this.props.navigation.navigate('issuance')}>
+                <Text style={{fontSize: 14, alignSelf: 'center', color:'#757575'}}>Back</Text>
+            </TouchableOpacity>
             <Text style={{fontSize: 12, alignSelf: 'center', color:'#9e9e9e'}}>BunkSheet</Text>
         </View>
     );

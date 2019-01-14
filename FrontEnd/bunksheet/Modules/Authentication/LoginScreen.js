@@ -41,7 +41,7 @@ class LoginScreen extends Component {
         Auth.signIn(this.props.email, this.props.password)
             .then(user => {
                     this.setState({ isAuthenticating: false });
-                    this.props.navigation.navigate('library', user); 
+                    this.props.navigation.navigate('all_books_list', user); 
                 })
             .catch(err => { 
                 this.setState({ isAuthenticating: false });
