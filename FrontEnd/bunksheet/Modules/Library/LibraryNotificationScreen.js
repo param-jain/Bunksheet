@@ -126,6 +126,9 @@ renderList = () => {
                     
                       <Text style={styles.name}>{this.state.noticeSelected.title}</Text>
                       <Text style={styles.about}>{this.state.noticeSelected.body}</Text>
+                      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', marginRight: 20, marginTop: 20}}>{this.state.noticeSelected.ts}</Text>
+
+                      <Image style= {{ height: 300, width: 300, borderRadius: 10, marginTop: 20}} source={{uri: this.state.noticeSelected.link}}/>
               
                     </ScrollView>
                   </View>
@@ -262,13 +265,7 @@ styles={
   },
   about:{
     marginHorizontal:10,
-    marginTop: 10
-  },
-  pageCount: {
-    marginTop:20,
-    marginLeft: 10,
-    flex: 1,
-    color: '#311B92'
+    marginTop: 10,
   },
   notAvailable: {
     marginTop:20,
@@ -290,7 +287,7 @@ styles={
     color: '#FFFFFF',
     fontSize: 18,
     padding: 0
-  }
+  },
 }
 
 const mapStateToProps = (state) => ({

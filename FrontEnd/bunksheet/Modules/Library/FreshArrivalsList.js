@@ -5,6 +5,11 @@ import { LinearGradient } from 'expo';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
+import Amplify, { Auth } from 'aws-amplify';
+import awsConfig from '../../sensitive_info/aws-exports';
+
+Amplify.configure({ Auth: awsConfig });
+
 const bookLoading = require('../../Animations/downloading_book.json');
 
 
@@ -62,6 +67,12 @@ class FreshArrivalsList extends Component {
     toAllBooksListScreen() {
         this.props.navigation.navigate('all_books_list');
     }
+
+    LogOut() {
+      Auth.signOut()
+        .then(data => this.props.navigation.navigate('login'))
+        .catch(err => console.log(err));
+    }
       
     renderHeader = () => {
         return(
@@ -73,6 +84,7 @@ class FreshArrivalsList extends Component {
             leftContainerStyle={{margin: 10}}
             centerComponent={{ text: 'Fresh Arrivals', style: { color: '#fff',fontSize: 22, fontWeight: 'bold' } }}
             leftComponent={{ icon: 'arrow-left', type: 'entypo', color: '#fff', onPress: () => this.toAllBooksListScreen(), size: 30, underlayColor:'#64b5f6' }}
+            rightComponent={{ icon: 'sign-out', type: 'font-awesome', color: '#fff', onPress: () => this.LogOut(), size: 27, underlayColor:'#64b5f6' }}
             />
         );
     }

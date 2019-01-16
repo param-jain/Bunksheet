@@ -17,6 +17,16 @@ import {
 } from 'react-native';
 import { Header, Icon, ListItem } from 'react-native-elements';
 
+import { Auth } from 'aws-amplify';
+
+import { connect } from 'react-redux'
+import { 
+  signupRegIDChanged,
+} from '../../actions/index'
+
+import openSocket from 'socket.io-client';
+const  socket = openSocket('https://mighty-hollows-23016.herokuapp.com/user');
+
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
@@ -34,13 +44,24 @@ class Issuance extends Component {
             modalVisible:false,
             bookSelected: [],
             animation: null,
+            currentLoggedUserRegID: 'E2K1610000',
         }
-
         this.arrayHolder = [];
     }
 
     componentDidMount(){
         this._playAnimation();
+
+        Auth.currentAuthenticatedUser({
+          bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+        }).then(user => {
+          this.setState({
+            currentLoggedUserRegID: `${user.attributes["custom:college_reg_id"]}`,
+          });
+        console.log(user.attributes);
+      });
+
+
         this.makeRemoteRequest();
     }
 
@@ -127,25 +148,36 @@ class Issuance extends Component {
         });
       }
 
-      alertConfirmationYES = () => {
+      alertConfirmationYES = (ISBN, regID) => {
           this.setModalVisible(false);
-          this.props.navigation.navigate('returnSuccessToken');
+          
+          socket.emit('requestReturnBook', { regID: `${regID}`, ban: `${ISBN}`});
+          this.props.navigation.navigate('returnPendingToken');
+          socket.on('responseReturnBook', socketStatus => {
+            if (socketStatus.rcode === 501) {
+              this.props.navigation.navigate('returnFailureToken');
+            } else if (socketStatus.rcode === 600) {
+              this.props.navigation.navigate('returnSuccessToken');
+            } 
+            socket.close(); 
+          });
+          
       }
 
       alertConfirmationNO = () => {
         this.setModalVisible(false);
-        this.props.navigation.navigate('returnFailureToken');
     }
 
-      confirmationAlert = () => {
-        //this.setState({bookSelected: item});
+      confirmationAlert = (bookSelected) => {
+
+        const {currentLoggedUserRegID} = this.state
 
         Alert.alert(
             'Confirm Return',
-            'Do you really want to return this book?',
+            `Do you really want to return this book? ISBN: ${bookSelected.ISBN} ID: ${currentLoggedUserRegID}`,
             [
               {text: 'NO', onPress: () => this.alertConfirmationNO(), style: 'cancel'},
-              {text: 'YES', onPress: () => this.alertConfirmationYES()},
+              {text: 'YES', onPress: () => this.alertConfirmationYES(bookSelected.ISBN, currentLoggedUserRegID)},
             ],
             { cancelable: false }
           )
@@ -200,7 +232,7 @@ class Issuance extends Component {
                         </ScrollView>
                         </View>
                         <View style={styles.popupButtons}>
-                            <TouchableOpacity style= {styles.btnClose} onPress={() => {this.confirmationAlert()}}>
+                            <TouchableOpacity style= {styles.btnClose} onPress={() => {this.confirmationAlert(this.state.bookSelected)}}>
                                 <Text style={styles.txtClose}>Return</Text>
                             </TouchableOpacity>
                         </View>
@@ -394,4 +426,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Issuance;
+const mapStateToProps = (state) => ({
+  regID: state.sign_up.regID,
+});
+
+export default connect(mapStateToProps, {
+  signupRegIDChanged,
+})(Issuance);

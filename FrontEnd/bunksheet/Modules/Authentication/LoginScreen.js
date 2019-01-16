@@ -13,6 +13,11 @@ Amplify.configure({ Auth: awsConfig });
 
 class LoginScreen extends Component {
 
+    componentDidMount() {
+        Auth.currentSession()
+            .then(data => this.props.navigation.navigate('all_books_list'));
+    }
+
     constructor(props) {
         super(props);
     

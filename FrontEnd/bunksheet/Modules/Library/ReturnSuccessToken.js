@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Dimensions, Image } from 'react-native';
+import { Text, StyleSheet, View, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
@@ -73,7 +73,7 @@ export default class ReturnSuccessToken extends React.Component {
                     </View>
             </View>
             <TouchableOpacity onPress = {() => this.props.navigation.navigate('issuance')}>
-                <Text style={{fontSize: 14, alignSelf: 'center', color:'#757575'}}>Back</Text>
+                <Text style={{fontSize: 12, alignSelf: 'center', color:'#757575'}}>Back</Text>
             </TouchableOpacity>
             <Text style={{fontSize: 12, alignSelf: 'center', color:'#9e9e9e'}}>BunkSheet</Text>
         </View>

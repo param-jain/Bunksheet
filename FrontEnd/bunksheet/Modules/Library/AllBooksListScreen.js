@@ -229,28 +229,30 @@ toBarCodeScannerScreen() {
 
 renderRightComponent = () => {
   return (
-    <IconBadge
-    MainElement={
-      <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toNotificationScreen()} size={30} underlayColor="#64b5f6"/>
-    }
-    BadgeElement={
-      <Text style={{color:'#FFFFFF'}}>{this.state.BadgeCount}</Text>
-    }
-    IconBadgeStyle={
-      {
-        position:'absolute',
-        top:-5,
-        right:-5,
-        width:20,
-        height:20,
-        borderRadius:15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FF0000'
-      }
-    }
-    Hidden={this.state.BadgeCount==0}
-    />
+    <View style={{flexDirection: 'row'}}>
+        <IconBadge
+          MainElement={
+            <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toNotificationScreen()} size={30} underlayColor="#64b5f6"/>
+          }
+          BadgeElement={
+            <Text style={{color:'#FFFFFF'}}>{this.state.BadgeCount}</Text>
+          }
+          IconBadgeStyle={
+            {
+              position:'absolute',
+              top:-5,
+              right:-5,
+              width:20,
+              height:20,
+              borderRadius:15,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#FF0000'
+            }
+          }
+          Hidden={this.state.BadgeCount==0}
+          />
+    </View>
    );
 }
 

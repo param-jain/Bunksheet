@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, Icon } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
@@ -19,14 +19,12 @@ import AllBooksListScreen from './Modules/Library/AllBooksListScreen';
 
 import registerForNotifications from './Modules/Services/push_notifications_service'
 import Issuance from './Modules/Library/IssuancePage';
-import TEST from './blabla';
 import ReturnSuccessToken from './Modules/Library/ReturnSuccessToken';
 import ReturnFailureToken from './Modules/Library/ReturnFailureToken';
 import ReturnPendingToken from './Modules/Library/ReturnApprovalPending';
 import IssueSuccessToken from './Modules/Library/IssueSuccessToken';
 import IssueFailureToken from './Modules/Library/IssueFailureToken';
 import IssuePendingToken from './Modules/Library/IssuePendingToken';
-
 
 export default class App extends React.Component {
 
@@ -47,7 +45,6 @@ export default class App extends React.Component {
     const MainNavigator = createBottomTabNavigator({
 
       login: { screen: LoginScreen },
-
         library: {
           screen: createBottomTabNavigator({
             all_books_list: { screen: AllBooksListScreen },
@@ -66,6 +63,7 @@ export default class App extends React.Component {
        issueFailureToken: { screen: IssueFailureToken },
        issuePendingToken: { screen: IssuePendingToken },
 
+       //login: { screen: LoginScreen },
         forgot_password: { screen: ForgotPasswordScreen },
 
         sign_up: { 

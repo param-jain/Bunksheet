@@ -4,16 +4,31 @@ import { BarCodeScanner, Permissions } from 'expo';
 import { Button } from 'react-native-elements';
 //import Spinner from 'react-native-loading-spinner-overlay';
 
+import { Auth } from 'aws-amplify';
+
+import openSocket from 'socket.io-client';
+const  socket = openSocket('https://mighty-hollows-23016.herokuapp.com/user');
+
 const { width } = Dimensions.get('window');
 
 export default class App extends React.Component {
 
   state = {
     hasCameraPermission: false,
+    currentLoggedUserRegID: 'E2K16100000',
   }
 
 componentDidMount() {
   this.getCameraPermissions();
+    
+  Auth.currentAuthenticatedUser({
+      bypassCache: true  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+    }).then(user => {
+      this.setState({
+        currentLoggedUserRegID: `${user.attributes["custom:college_reg_id"]}`,
+      });
+    console.log(user.attributes);
+  });
 }
 
   getCameraPermissions = async () => {
@@ -29,24 +44,37 @@ componentDidMount() {
     //this.props.navigation.navigate('library');
   }
 
-  alertConfirmation = () => {
+  alertConfirmation = (accessionNo) => {
+
+    const {currentLoggedUserRegID} = this.state
+
     Alert.alert(
       'Confirm Issue',
-      'Do you really want to issue this book?',
+      `Do you really want to issue this book with Accession Number: ${accessionNo}?`,
       [
         {text: 'NO', onPress: () => this.alertConfirmationNO(), style: 'cancel'},
-        {text: 'YES', onPress: () => this.alertConfirmationYES()},
+        {text: 'YES', onPress: () => this.alertConfirmationYES(accessionNo, currentLoggedUserRegID)},
       ],
       { cancelable: false }
     )
   }
 
-  alertConfirmationYES = () => {
-    this.props.navigation.navigate('issueSuccessToken');
+  alertConfirmationYES = (ban, regID) => {
+
+    socket.emit('requestIssueBook', { regID: `${regID}`, ban: `${ban}`});
+          this.props.navigation.navigate('issuePendingToken');
+          socket.on('responseIssueBook', socketStatus => {
+            if (socketStatus.rcode === 501) {
+              this.props.navigation.navigate('issueFailureToken');
+            } else if (socketStatus.rcode === 600) {
+              this.props.navigation.navigate('issueSuccessToken');
+            } 
+            socket.close(); 
+          });
   }
 
 alertConfirmationNO = () => {
-  this.props.navigation.navigate('issueFailureToken');
+  this.props.navigation.navigate('issuance');
 }
 
   render() {
@@ -82,7 +110,8 @@ alertConfirmationNO = () => {
     return (
       <View style={{ flex: 1 }}>
         <BarCodeScanner
-          onBarCodeRead={() => this.alertConfirmation()}
+          onBarCodeRead={(accession) => this.alertConfirmation(accession.data)}
+          //onBarCodeRead={(accession) => console.log(accession)}
           style={[StyleSheet.absoluteFill, styles.container]}
         >
           <View style={styles.layerTop}>
