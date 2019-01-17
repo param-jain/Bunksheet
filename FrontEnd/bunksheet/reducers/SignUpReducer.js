@@ -21,7 +21,7 @@ const INITIAL_STATE = {
     fNameTouched: false,
     lName: '',
     lNameTouched: '',
-    regID: 'E2K16102832',
+    regID: '',
     regIDTouched: false,
     OTP: '',
     OTPTouched: false
