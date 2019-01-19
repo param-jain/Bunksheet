@@ -2,7 +2,7 @@ import { Permissions, Notifications } from 'expo';
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
-const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send"
+const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
 
 export default async () => {
 
@@ -22,8 +22,10 @@ export default async () => {
     }
 
     let token = await Notifications.getExpoPushTokenAsync();
-    console.log('token: ' + token);
+
+    console.log('current token: ' + token);
     await axios.post(PUSH_ENDPOINT, token.token);
+
     AsyncStorage.setItem('pushtoken', token);
 
     this.subscription = Notifications.addListener(this.handleNotification);

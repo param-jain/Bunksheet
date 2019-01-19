@@ -71,7 +71,7 @@ class FreshArrivalsList extends Component {
     LogOut() {
       Auth.signOut()
         .then(data => this.props.navigation.navigate('login'))
-        .catch(err => console.log(err));
+        .catch(err => console.log("Fresh Arrivals LogOut Error: " + err));
     }
       
     renderHeader = () => {

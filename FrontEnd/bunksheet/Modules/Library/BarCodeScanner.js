@@ -27,7 +27,7 @@ componentDidMount() {
       this.setState({
         currentLoggedUserRegID: `${user.attributes["custom:college_reg_id"]}`,
       });
-    console.log(user.attributes);
+    console.log("Barcode Scanner: "+user.attributes);
   });
 }
 

@@ -26,16 +26,24 @@ import IssueSuccessToken from './Modules/Library/IssueSuccessToken';
 import IssueFailureToken from './Modules/Library/IssueFailureToken';
 import IssuePendingToken from './Modules/Library/IssuePendingToken';
 
+import axios from 'axios';
+const BUNKSHEET_TOKEN_STORAGE = "https://mighty-hollows-23016.herokuapp.com/cc/addExpoToken";
+
+
 export default class App extends React.Component {
 
-  componentDidMount() {
+  async componentDidMount() {
     registerForNotifications();
-    Notifications.addListener((notification) => {
-      const text = notification.body;
 
+    let token = await Notifications.getExpoPushTokenAsync();
+        await axios.post(BUNKSHEET_TOKEN_STORAGE, { expoToken: token })
+          .then(console.log('Current Token Stored in BS Database: ' + token));
+
+    Notifications.addListener((notification) => {
+        console.log("Notification: " +JSON.stringify(notification));
         Alert.alert(
           'New Notice',
-          text,
+          'Check your Library Notifications Page',
           [{ text: 'Ok.' }]
         );
     });  

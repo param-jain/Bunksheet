@@ -58,7 +58,7 @@ class Issuance extends Component {
           this.setState({
             currentLoggedUserRegID: `${user.attributes["custom:college_reg_id"]}`,
           });
-        console.log(user.attributes);
+        console.log("Issuance Page User Attributes: "+user.attributes);
       });
 
 

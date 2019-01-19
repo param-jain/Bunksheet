@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, Dimensions, KeyboardAvoidingView, FlatList, Image, Keyboard, TextInput, StyleSheet, StatusBar, TouchableWithoutFeedback, ActivityIndicator, Modal, Text, ScrollView } from 'react-native';
 import { Header, ListItem, Icon, Button } from 'react-native-elements';
-import { LinearGradient } from 'expo';
+import { LinearGradient, Notifications } from 'expo';
 import IconBadge from 'react-native-icon-badge';
 import { DangerZone } from 'expo';
 const { Lottie } = DangerZone;
 
 const bookLoading = require('../../Animations/downloading_book.json');
+
 
 class AllBooksListScreen extends Component {
 
@@ -37,7 +38,7 @@ class AllBooksListScreen extends Component {
         this.arrayHolder = [];
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         this._playAnimation();
         this.makeRemoteRequest();
     }
@@ -71,7 +72,7 @@ class AllBooksListScreen extends Component {
         searchBarTextTouched: true,
         searchLoad: true
       });
-      console.log(this.arrayHolder);
+      console.log("All Books Array Holder: " + this.arrayHolder);
       const newData = this.arrayHolder.filter(item => {
         const itemData = `${item.Author.toUpperCase()} ${item.Publisher.toUpperCase()} ${item.Title.toUpperCase()}`;
         const textData = text.toUpperCase();
@@ -109,8 +110,6 @@ class AllBooksListScreen extends Component {
     }
 
     crossIconFunctionality = () => {
-      console.log(this.state.searchBarTextTouched);
-      console.log(this.state.searchBarText);
       if (this.state.searchBarTextTouched) {
         return (
           <View style={{marginRight: 5, alignContent:'center'}}>
