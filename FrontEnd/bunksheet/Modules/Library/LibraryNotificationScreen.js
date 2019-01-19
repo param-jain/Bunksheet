@@ -28,7 +28,7 @@ componentDidMount(){
 }
 
 makeRemoteRequest = () => {
-  const url = `https://collegebuddy.pythonanywhere.com/api/notification`;
+  const url = `https://mighty-hollows-23016.herokuapp.com/nd/pushNotification`;
   this.setState({ loading: true });
 
   fetch(url)
@@ -101,13 +101,14 @@ renderList = () => {
               <ListItem
               title={item.title}
               titleStyle = {{fontWeight: "bold"}}
+              subtitle={item.time}
               containerStyle={{ borderBottomWidth: 0 }}
               chevronColor="white"
               chevron
               onPress={() => this.noticeDetailModal(item)}
               />
               )}
-              keyExtractor={item => item.id.toString()}
+              keyExtractor={item => item.Id.toString()}
               ItemSeparatorComponent={this.renderSeparator}
               //ListHeaderComponent={this.renderHeader}
           />
@@ -126,9 +127,9 @@ renderList = () => {
                     
                       <Text style={styles.name}>{this.state.noticeSelected.title}</Text>
                       <Text style={styles.about}>{this.state.noticeSelected.body}</Text>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', marginRight: 20, marginTop: 20}}>{this.state.noticeSelected.ts}</Text>
+                      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', marginRight: 20, marginTop: 20}}>{this.state.noticeSelected.time}</Text>
 
-                      <Image style= {{ height: 300, width: 300, borderRadius: 10, marginTop: 20}} source={{uri: this.state.noticeSelected.link}}/>
+                      <Image style= {{ height: 300, width: 300, borderRadius: 10, marginTop: 20}} source={{uri: this.state.noticeSelected.Image}}/>
               
                     </ScrollView>
                   </View>
