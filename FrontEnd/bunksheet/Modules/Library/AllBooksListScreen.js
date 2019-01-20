@@ -31,17 +31,39 @@ class AllBooksListScreen extends Component {
           error: '',
           modalVisible:false,
           bookSelected:[],
-          BadgeCount: 3,
+          noticeBadgeCount: 0,
           animation: null,
         }
 
         this.arrayHolder = [];
     }
 
-    async componentDidMount(){
+    componentDidMount(){
         this._playAnimation();
         this.makeRemoteRequest();
+        this.loadNoticeCount();
     }
+
+    loadNoticeCount = () => {
+        const url = `https://mighty-hollows-23016.herokuapp.com/bh/getNotices`;
+        this.setState({ loading: true });
+
+      fetch(url)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            //data: res.results,
+            noticeBadgeCount: res.activecount,
+            error: res.error || null,
+            loading: false,
+          });
+      //this.arrayHolder = res.results;
+        })
+      .catch(error => {
+      this.setState({ error, loading: false });
+      });
+
+    };
 
     makeRemoteRequest = () => {
         this._playAnimation();
@@ -234,7 +256,7 @@ renderRightComponent = () => {
             <Icon name="bullhorn" type="font-awesome" color="#fff" onPress={() => this.toNotificationScreen()} size={30} underlayColor="#64b5f6"/>
           }
           BadgeElement={
-            <Text style={{color:'#FFFFFF'}}>{this.state.BadgeCount}</Text>
+            <Text style={{color:'#FFFFFF'}}>{this.state.noticeBadgeCount}</Text>
           }
           IconBadgeStyle={
             {
@@ -249,7 +271,7 @@ renderRightComponent = () => {
               backgroundColor: '#FF0000'
             }
           }
-          Hidden={this.state.BadgeCount==0}
+          Hidden={this.state.noticeBadgeCount==0}
           />
     </View>
    );

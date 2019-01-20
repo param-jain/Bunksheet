@@ -6,6 +6,8 @@ import { Header, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux'
 import { libraryNoticeCount } from '../../actions/index'
 
+const ROOT_URL = 'https://mighty-hollows-23016.herokuapp.com/';
+
 
 class LibraryNotificationScreen extends Component {
 
@@ -28,7 +30,7 @@ componentDidMount(){
 }
 
 makeRemoteRequest = () => {
-  const url = `https://mighty-hollows-23016.herokuapp.com/nd/pushNotification`;
+  const url = `https://mighty-hollows-23016.herokuapp.com/bh/getNotices`;
   this.setState({ loading: true });
 
   fetch(url)
@@ -36,7 +38,7 @@ makeRemoteRequest = () => {
       .then(res => {
       this.setState({
           //data: res.results,
-          data: res,
+          data: res.notices,
           error: res.error || null,
           loading: false,
       });
@@ -101,14 +103,14 @@ renderList = () => {
               <ListItem
               title={item.title}
               titleStyle = {{fontWeight: "bold"}}
-              subtitle={item.time}
+              subtitle={item.timestamp}
               containerStyle={{ borderBottomWidth: 0 }}
               chevronColor="white"
               chevron
               onPress={() => this.noticeDetailModal(item)}
               />
               )}
-              keyExtractor={item => item.Id.toString()}
+              keyExtractor={item => item._id.toString()}
               ItemSeparatorComponent={this.renderSeparator}
               //ListHeaderComponent={this.renderHeader}
           />
@@ -126,10 +128,10 @@ renderList = () => {
                     <ScrollView contentContainerStyle={styles.modalInfo}>
                     
                       <Text style={styles.name}>{this.state.noticeSelected.title}</Text>
-                      <Text style={styles.about}>{this.state.noticeSelected.body}</Text>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', marginRight: 20, marginTop: 20}}>{this.state.noticeSelected.time}</Text>
+                      <Text style={styles.about}>{this.state.noticeSelected.nbody}</Text>
+                      <Text style={{ fontWeight: 'bold', alignSelf: 'flex-end', marginRight: 20, marginTop: 20}}>{this.state.noticeSelected.timestamp}</Text>
 
-                      <Image style= {{ height: 300, width: 300, borderRadius: 10, marginTop: 20}} source={{uri: this.state.noticeSelected.Image}}/>
+                      <Image style= {{ height: 300, width: 300, borderRadius: 10, marginTop: 20}} source={{uri: ROOT_URL+this.state.noticeSelected.noticeimage}}/>
               
                     </ScrollView>
                   </View>
