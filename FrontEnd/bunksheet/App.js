@@ -4,7 +4,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
-import reducers from './reducers';
 import { Notifications } from 'expo';
 
 import LoginScreen from './Modules/Authentication/LoginScreen';
@@ -25,6 +24,8 @@ import ReturnPendingToken from './Modules/Library/ReturnApprovalPending';
 import IssueSuccessToken from './Modules/Library/IssueSuccessToken';
 import IssueFailureToken from './Modules/Library/IssueFailureToken';
 import IssuePendingToken from './Modules/Library/IssuePendingToken';
+
+import reducers from './reducers';
 
 import axios from 'axios';
 const BUNKSHEET_TOKEN_STORAGE = "https://mighty-hollows-23016.herokuapp.com/cc/addExpoToken";
