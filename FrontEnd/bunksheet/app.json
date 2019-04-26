@@ -1,17 +1,20 @@
 {
   "expo": {
-    "name": "bunksheet",
+    "name": "Bunksheet-Library",
     "description": "This project is really great. Please contact Team BunkSheet to implement this project in your College upon completion.",
-    "slug": "bunksheet",
+    "slug": "bunksheet-library",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": [
       "ios",
       "android"
     ],
+    "android": {
+      "package": "com.BunkSheet.BunkSheet-Library"
+    },
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/bunksheet_logos/bunksheet_logo.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
