@@ -10,7 +10,7 @@
       "android"
     ],
     "android": {
-      "package": "com.BunkSheet.BunkSheet-Library"
+      "package": "com.BunkSheet.BunkSheetLibrary"
     },
     "version": "1.0.0",
     "orientation": "portrait",
